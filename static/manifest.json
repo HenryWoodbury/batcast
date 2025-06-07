@@ -1,0 +1,54 @@
+{
+  "manifest_version": 3,
+  "name": "Batcast",
+  "version": "0.1.0",
+  "description": "Visual cues for setting fantasy baseball lineups",
+  "background": {
+    "service_worker": "serviceWorker.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://ottoneu.fangraphs.com/*"],
+      "js": ["settingScript.js"],
+      "run_at": "document_start"
+    },{
+      "matches": ["https://ottoneu.fangraphs.com/*"],
+      "js": ["contentScript.js"]
+    }
+  ],
+  "host_permissions": [
+    "https://ottoneu.fangraphs.com/*"
+  ],
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "permissions": ["storage", "scripting", "tabs", "identity"],
+  "action": {
+    "default_title": "Batcast",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "oauth2": {
+    "client_id": "611629142510-ae4d4092uqvjurk3qaatgqm0dvj05m2q.apps.googleusercontent.com",
+    "scopes": ["https://www.googleapis.com/auth/spreadsheets.readonly"]
+  },
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnTDpNHXHmVeDlXmozEY4t0lpz6eb0ACFbhka5agYr4VB449/29woB8pCfRBUMiF5AP5TZcp7hKPY19ro7v/6io6AnU8b+e/cKkav7ZznFsBHce8RbxWARqwL+5YxY4dfKsGhjDxqgii5b0m4CFkwYE/Btg6TYNDwZRB9Y6+IOGRH4gCj2Owg2MsXB4Olvt9vnuxtgbNNzufDBr2+ZVpeLYcecuQT1gtpdBJmNzHnPccIV1o4sdimBp3e9AELKiIyx8avXkhUuwmkp2NrTcNAxI4AGCzi2czPbrhHj2OpC53voXRuAaGThzP0TmfPoUVCg6mCBdtekpBbj+5WrO3+UQIDAQAB",
+  "web_accessible_resources": [
+    {
+      "resources": [ "css/batcast.css", "images/*" ],
+      "matches": [ "https://ottoneu.fangraphs.com/*" ]
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+@use "theme.sass"
+
+html,
+body
+  padding: 0
+  margin: 0
+  font-family: theme.$fontFamilySystem
+  font-size: theme.$fontSizeSystem
+  background-color: theme.$colorBackgroundDefault
+  line-height: theme.$lineHeightShort
+  width: 100%
+
+a,
+a:link,
+a:active,
+a:visited
+  font-weight: 600
+  text-decoration: none
+  color: theme.$colorLink
+
+a:hover
+  text-decoration: underline
+  color: theme.$colorLinkHover
+
+strong
+  font-weight: 700
+
+p, h1, h2, h3
+  margin: 0
+
+ul
+  margin-top: 0
+  margin-bottom: 0
+
+h1
+  padding: 1rem 20px 0.5rem
+  font-family: theme.$fontFamilyHead
+  text-transform: uppercase
+  font-size: 2rem
+  font-weight: 600
+
+h2
+  padding: 0rem 20px 0.5rem
+  font-family: theme.$fontFamilyHead
+  font-size: 1.5rem
+  font-weight: 600
+
+h3
+  padding: 0rem 20px 0.5rem
+  font-family: theme.$fontFamilyHead
+  font-size: 1.25rem
+  font-weight: 600
+
+p
+  font-size: 1rem
+  padding: 0 20px 0.5rem
+
+.logo
+  height: theme.$logoHeight
+  transform: translate(0, 0.5rem)
+
+.hide
+  display: none

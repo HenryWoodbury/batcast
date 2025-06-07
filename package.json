@@ -1,0 +1,70 @@
+{
+  "name": "batcast",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Henry Woodbury",
+  "license": "MIT",
+  "scripts": {
+    "start": "webpack --watch --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
+    "lint": "eslint --ext .ts,.js --max-warnings=0 .",
+    "prettier": "prettier --write",
+    "csvj": "node ./scripts/csvj.js",
+    "csvj:test": "node ./scripts/csvj.js --test",
+    "csvj:batters": "node ./scripts/csvj.js --inputFile='batters.csv'",
+    "csvj:pitchers": "node ./scripts/csvj.js --inputFile='pitchers.csv'",
+    "csvj:limits": "node ./scripts/csvj.js --inputFile='limits.csv'",
+    "csvj:parks-left": "node ./scripts/csvj.js --inputFile='pfL.csv'",
+    "csvj:parks-right": "node ./scripts/csvj.js --inputFile='pfR.csv'",
+    "csvj:parks": "npm run csvj:parks-left & npm run csvj:parks-right",
+    "csvj:players": "npm run csvj:batters & npm run csvj:pitchers",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.10",
+    "@babel/plugin-transform-runtime": "^7.26.10",
+    "@babel/preset-env": "^7.26.9",
+    "@babel/preset-typescript": "^7.26.0",
+    "@types/chrome": "^0.0.309",
+    "@types/jest": "^29.5.14",
+    "@types/papaparse": "^5.3.15",
+    "@typescript-eslint/eslint-plugin": "^8.26.1",
+    "@typescript-eslint/parser": "^8.26.1",
+    "babel-jest": "^29.7.0",
+    "babel-loader": "^10.0.0",
+    "copy-webpack-plugin": "^13.0.0",
+    "css-loader": "^7.1.2",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-webpack-plugin": "^5.0.0",
+    "husky": "^9.1.7",
+    "jest": "^29.7.0",
+    "lint-staged": "^15.5.0",
+    "mini-css-extract-plugin": "^2.9.2",
+    "prettier": "^3.5.3",
+    "sass": "^1.85.1",
+    "sass-loader": "^16.0.5",
+    "ts-jest": "^29.2.6",
+    "typescript": "^5.8.2",
+    "webpack": "^5.98.0",
+    "webpack-cli": "^6.0.1",
+    "webpack-merge": "^6.0.1"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.26.10",
+    "convert-csv-to-json": "^2.50.0",
+    "nanoid": "^5.1.3",
+    "papaparse": "^5.5.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,js}": [
+      "npm run prettier",
+      "npm run lint"
+    ]
+  }
+}

@@ -1,0 +1,83 @@
+@use "theme.sass"
+
+.icon.round
+  border-radius: 8px
+
+.icon.square,
+.icon.round
+  display: inline-block
+  height: 16px !important
+  width: 16px !important
+  line-height: 16px
+  text-align: center
+  font-size: 13px
+  box-sizing: border-box
+  cursor: pointer
+  &.hollow
+    font-weight: 800
+    background-color: white
+    border-width: 1px
+    border-style: solid
+    &.error
+      color: theme.$colorError
+      border-color: theme.$colorError
+    &.warning
+      color: theme.$colorWarning
+      border-color: theme.$colorWarning
+    &.success
+      color: theme.$colorSuccess
+      border-color: theme.$colorSuccess
+    &.question
+      color: theme.$colorQuestion
+      border-color: theme.$colorQuestion
+    &.info
+      line-height: 14px
+      color: theme.$colorInfo
+      border-color: theme.$colorInfo
+  &.filled
+    font-weight: 800
+    &.error
+      background-color: theme.$colorError
+      color: white
+    &.warning
+      background-color: theme.$colorWarning
+      color: white
+    &.success
+      background-color: theme.$colorSuccess
+      color: white
+    &.question
+      background-color: theme.$colorQuestion
+      color: white
+    &.info
+      background-color: theme.$colorInfo
+      color: white
+  &:hover
+    text-decoration: none
+
+.tooltip-pop
+  position: absolute
+  max-width: 180px
+  padding: 5px 10px
+  font-size: 12px
+  background-color: black
+  color: white
+  box-sizing: border-box
+  z-index: 1000
+  border-radius: 4px
+  animation: unreveal
+  animation-duration: 0.5s
+  &.reveal
+    animation: reveal
+    animation-duration: 0.5s
+
+@keyframes reveal
+  from 
+    opacity: 0
+  to 
+    opacity: 1
+
+@keyframes unreveal
+  from 
+    opacity: 1
+  to 
+    opacity: 0

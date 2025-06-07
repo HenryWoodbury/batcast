@@ -1,0 +1,50 @@
+[
+ {
+  "LimitID": "BOBA",
+  "Factor": "Batter wOBA",
+  "Min": "0.260",
+  "Max": "0.380",
+  "Avg": "0.310",
+  "Increments": "10",
+  "MinColor": "54 97 172",
+  "AvgColor": "255 255 255",
+  "MaxColor": "216 34 41",
+  "LeagueAvg": "0.310"
+ },
+ {
+  "LimitID": "POBA",
+  "Factor": "Pitcher wOBA",
+  "Min": "0.260",
+  "Max": "0.380",
+  "Avg": "0.310",
+  "Increments": "10",
+  "MinColor": "54 97 172",
+  "AvgColor": "255 255 255",
+  "MaxColor": "216 34 41",
+  "LeagueAvg": "0.310"
+ },
+ {
+  "LimitID": "XFIP",
+  "Factor": "Pitcher FIP",
+  "Min": "3.00",
+  "Max": "5.00",
+  "Avg": "4.08",
+  "Increments": "10",
+  "MinColor": "54 97 172",
+  "AvgColor": "255 255 255",
+  "MaxColor": "216 34 41",
+  "LeagueAvg": "4.08"
+ },
+ {
+  "LimitID": "PF",
+  "Factor": "Park Factor",
+  "Min": "90",
+  "Max": "111",
+  "Avg": "100",
+  "Increments": "7",
+  "MinColor": "114 144 197",
+  "AvgColor": "255 255 255",
+  "MaxColor": "228 100 105",
+  "LeagueAvg": "100"
+ }
+]

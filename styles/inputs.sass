@@ -1,0 +1,113 @@
+@use "theme.sass"
+@use "loaders.sass"
+
+$colorInputBorder: #a3a3a3
+$colorInputBorderDisabled: #dcdcdc
+$colorPlaceholder: #a3a3a3
+$colorButtonText: #000000
+$colorButtonBackground: #f1f1f1
+$colorButtonBackgroundHover: #e5e5e5
+$colorButtonBorder: #d9d9d9
+$colorButtonBorderHover: #cecece
+$colorButtonTextDisabled: #989898
+$colorButtonBackgroundDisabled: #f8f8f8
+$colorButtonBorderDisabled: #d1d1d1
+$colorSubmitText: #ffffff
+$colorSubmitBackground: #307FE2
+$colorSubmitBackgroundHover: #2666B5
+$colorSubmitBorder: #2666B5
+$colorSubmitBorderHover: #22599E
+$colorSubmitTextDisabled: #ffffff
+$colorSubmitBackgroundDisabled: #9BBFF1
+$colorSubmitBorderDisabled: #95B3DB
+
+input,
+label
+  display: block
+
+label
+  padding: 0.5rem 0
+  font-weight: 600
+
+input
+  width: 100%
+  font-size: 1rem
+  border-radius: 2px
+  padding: 0.6rem 8px
+  border: 1px solid $colorInputBorder
+
+input::placeholder 
+  color: $colorPlaceholder
+  font-weight: 200
+
+button
+  position: relative
+  padding: 0.5rem 20px
+  margin-right: 0.5rem
+  border-radius: 2px
+  font-weight: 500
+  font-family: theme.$fontFamilyHead
+  font-size: 1rem
+  border: 1px solid $colorInputBorder
+  background-color: $colorButtonBackground
+  color: $colorButtonText
+  overflow: hidden
+  .loader
+    display: none
+    position: absolute
+    top: calc(50% - 1rem)
+    left: calc(50% - 1rem)
+  &:hover:not(:disabled)
+    background-color: $colorButtonBackgroundHover
+  &:disabled
+    color: $colorButtonTextDisabled
+    border-color: $colorButtonBorderDisabled
+    background-color: $colorButtonBackgroundDisabled
+  &.spinner
+    color: $colorButtonTextDisabled
+    border-color: $colorButtonBorderDisabled
+    background-color: $colorButtonBackgroundDisabled
+    .loader
+      display: block
+    .label
+      visibility: hidden
+    &:hover
+      background-color: $colorButtonBackgroundDisabled
+button
+  &.primary,
+  &[type="submit"]
+    border: 1px solid $colorSubmitBorder
+    background-color: $colorSubmitBackground
+    color: $colorSubmitText
+    &:hover:not(:disabled)
+      background-color: $colorSubmitBackgroundHover
+      border-color: $colorSubmitBorderHover
+      color: $colorSubmitText
+    &:disabled
+      color: $colorSubmitTextDisabled
+      border-color: $colorSubmitBorderDisabled
+      background-color: $colorSubmitBackgroundDisabled
+    &.spinner
+      color: $colorSubmitTextDisabled
+      border-color: $colorSubmitBorderDisabled
+      background-color: $colorSubmitBackgroundDisabled
+      &:hover
+        color: $colorSubmitTextDisabled
+        border-color: $colorSubmitBorderDisabled
+        background-color: $colorSubmitBackgroundDisabled
+  &.tertiary
+    border-color: $colorButtonBorder
+    background-color: transparent
+    &:hover
+      border-color: $colorButtonBorderHover
+      background-color: $colorButtonBackground
+.options
+  position: absolute
+  top: 0
+  left: 200px
+  button
+    padding: 0.25rem 15px
+
+.inline-loader
+  position: relative
+  display: inline-block

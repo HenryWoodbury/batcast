@@ -1,0 +1,128 @@
+[
+ {
+  "ParkFactor": "90",
+  "bgColor": "#3661AC",
+  "color": "#FFFFFF",
+  "borderColor": "#3661AC"
+ },
+ {
+  "ParkFactor": "91",
+  "bgColor": "#4971B5",
+  "color": "#FFFFFF",
+  "borderColor": "#4971B5"
+ },
+ {
+  "ParkFactor": "92",
+  "bgColor": "#5E81BE",
+  "color": "#FFFFFF",
+  "borderColor": "#5E81BE"
+ },
+ {
+  "ParkFactor": "93",
+  "bgColor": "#7290C5",
+  "color": "#38455A",
+  "borderColor": "#7290C5"
+ },
+ {
+  "ParkFactor": "94",
+  "bgColor": "#86A0CE",
+  "color": "#38455A",
+  "borderColor": "#86A0CE"
+ },
+ {
+  "ParkFactor": "95",
+  "bgColor": "#9BB1D6",
+  "color": "#38455A",
+  "borderColor": "#9BB1D6"
+ },
+ {
+  "ParkFactor": "96",
+  "bgColor": "#AFBFDF",
+  "color": "#38455A",
+  "borderColor": "#AFBFDF"
+ },
+ {
+  "ParkFactor": "97",
+  "bgColor": "#C2D0E6",
+  "color": "#38455A",
+  "borderColor": "#C2D0E6"
+ },
+ {
+  "ParkFactor": "98",
+  "bgColor": "#D8DFEE",
+  "color": "#38455A",
+  "borderColor": "#D8DFEE"
+ },
+ {
+  "ParkFactor": "99",
+  "bgColor": "#EAEFF8",
+  "color": "#38455A",
+  "borderColor": "#EAEFF8"
+ },
+ {
+  "ParkFactor": "100",
+  "bgColor": "#FFFFFF",
+  "color": "#38455A",
+  "borderColor": "#DBE2E2"
+ },
+ {
+  "ParkFactor": "101",
+  "bgColor": "#FBE8EA",
+  "color": "#38455A",
+  "borderColor": "#FBE8EA"
+ },
+ {
+  "ParkFactor": "102",
+  "bgColor": "#F7D4D4",
+  "color": "#38455A",
+  "borderColor": "#F7D4D4"
+ },
+ {
+  "ParkFactor": "103",
+  "bgColor": "#F2BCBF",
+  "color": "#38455A",
+  "borderColor": "#F2BCBF"
+ },
+ {
+  "ParkFactor": "104",
+  "bgColor": "#EFA6A9",
+  "color": "#38455A",
+  "borderColor": "#EFA6A9"
+ },
+ {
+  "ParkFactor": "105",
+  "bgColor": "#EC9194",
+  "color": "#38455A",
+  "borderColor": "#EC9194"
+ },
+ {
+  "ParkFactor": "106",
+  "bgColor": "#E87A7E",
+  "color": "#38455A",
+  "borderColor": "#E87A7E"
+ },
+ {
+  "ParkFactor": "107",
+  "bgColor": "#E5646A",
+  "color": "#38455A",
+  "borderColor": "#E5646A"
+ },
+ {
+  "ParkFactor": "108",
+  "bgColor": "#E14C55",
+  "color": "#FFFFFF",
+  "borderColor": "#E14C55"
+ },
+ {
+  "ParkFactor": "109",
+  "bgColor": "#DB363D",
+  "color": "#FFFFFF",
+  "borderColor": "#DB363D"
+ },
+ {
+  "ParkFactor": "110",
+  "bgColor": "#D82229",
+  "color": "#FFFFFF",
+  "borderColor": "#D82229"
+ }
+]
