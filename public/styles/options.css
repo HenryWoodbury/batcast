@@ -2,3 +2,12 @@
 @import url('buttons.css');
 @import url('inputs.css');
 @import url('icons.css');
+
+.data-section {
+  padding-top: 1rem;
+  margin-bottom: 1rem;
+  width: 640px;
+  input {
+    width: calc(100% - 18px);
+  }
+}

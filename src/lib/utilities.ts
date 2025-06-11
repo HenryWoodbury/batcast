@@ -65,7 +65,7 @@ export const debounce = (timeout: number, callback: (event: Event) => void) => {
 // Credit: https://medium.com/swlh/set-a-time-limit-on-async-actions-in-javascript-567d7ca018c2
 export const dewait = async (timeLimit: number, task: Promise<void>, failureValue: string) => {
   let timeout;
-  const timeoutPromise = new Promise((resolve, reject) => {
+  const timeoutPromise = new Promise((resolve) => {
     timeout = setTimeout(() => {
       resolve(failureValue);
     }, timeLimit);
@@ -112,6 +112,8 @@ export const applyDefaultMetrics = async (tab: chrome.tabs.Tab, action: string) 
   } else if (action === storageInsertActions.UNSET) {
     await setStorageItem(STORAGE_KEYS.defaultMetricsFlag, false);
   }
+  // I think this is correct. No sense in doing a messageCurrentTab if the tab isn't valid
+  if (!tab.id) return;
   return await dewait(30000, messageCurrentTab(UPDATE_METRICS), UPDATE_METRICS);
 }
 
@@ -174,7 +176,7 @@ export const createDataObject = (
     const fatalError = `${dataName} sheet has invalid columns.`;
     return { dataObject, fatalError };
   }
-  dataArray.forEach((entry, i) => {
+  dataArray.forEach((entry) => {
     const customData = {} as ValidationData;
     // Validation done outside of loop since it requires comparisons between fields
     const validations = validateDataObject(dataType, entry);

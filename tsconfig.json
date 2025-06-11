@@ -1,15 +1,15 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "useDefineForClassFields": true,
-    "module": "NodeNext",
+    "module": "nodenext",
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
 
     // https://www.typescriptlang.org/tsconfig/#moduleResolution
-    "moduleResolution": "NodeNext",
-    "resolveJsonModule": true,
+    "moduleResolution": "nodenext",
     "allowImportingTsExtensions": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
     "noEmit": true,
@@ -22,5 +22,9 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
+  "exclude": [
+    "node_modules",
+    "public_html"
+  ],
   "include": ["src"]
 }
