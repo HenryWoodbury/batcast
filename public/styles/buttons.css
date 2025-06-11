@@ -1,0 +1,188 @@
+:root {
+  --toggle-button-background: #f0f0f0;
+  --toggle-button-background-hover: #e5e5e5;
+  --toggle-button-color: #000000;
+  --toggle-button-color-disabled: #a97b7b;
+  --toggle-background: #d0d0d0;
+  --toggle-background-hover: #c3c3c3;
+  --toggle-border-color: #b9b9b9;
+  --toggle-border-color-hover: #a0a0a0;
+  --toggle-icon-color: #a3a3a3;
+  --toggle-icon-color-hover: #9c9c9c;
+  --toggle-icon-color-on: #307fe2;
+  --toggle-icon-color-on-hover: #2b72cb;
+  --navigation-icon-color: #b9b9b9;
+  --navigation-icon-color-hover: #a0a0a0;
+}
+
+button.batcast-toggle-button,
+button.batcast-navigation-button {
+  position: relative;
+  width: 100%;
+  border: none;
+  margin-top: 0.2rem;
+  padding: 0.8rem 78px 0.8rem 20px;
+  color: var(--toggle-button-color);
+  line-height: 1.5;
+  background-color: var(--toggle-button-background);
+  text-align: left;
+  .batcast-button-header {
+    display: block;
+    font-weight: 600;
+    font-size: calc(18rem / 16);
+    margin: 0 0 0.2rem;
+  }
+  .batcast-button-label {
+    display: block;
+    font-weight: 400;
+    font-size: 1rem;
+  }
+  .batcast-toggle {
+    display: block;
+    position: absolute;
+    width: 46px;
+    height: 30px;
+    background-color: var(--toggle-background);
+    border-radius: 16px;
+    border: 1px solid var(--toggle-border-color);
+    right: 20px;
+    top: 0.8rem;
+    .batcast-toggle-icon {
+      display: block;
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      background-color: var(--toggle-icon-color);
+      left: 2px;
+      top: 2px;
+      border-radius: 13px;
+      animation-name: toggleRight;
+      animation-duration: 0.5s;
+    }
+  }
+  &.fixed {
+    .batcast-toggle {
+      .batcast-toggle-icon {
+        animation: none;
+      }
+    }
+  }
+  .batcast-navigation {
+    display: block;
+    position: absolute;
+    width: 44px;
+    height: 32px;
+    right: 14px;
+    top: 1.2rem;
+    .batcast-navigation-icon-right {
+      display: block;
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-width: 0 7px 7px 0;
+      border-style: solid;
+      border-color: var(--navigation-icon-color);
+      rotate: -45deg;
+    }
+  }
+  &:disabled {
+    color: var(--toggle-button-color-disabled);
+    .batcast-toggle {
+      opacity: 0.6;
+    }
+    .batcast-navigation {
+      opacity: 0.5;
+    }
+  }
+  &:hover:not(:disabled) {
+    background-color: var(--toggle-button-background-hover);
+    .batcast-toggle {
+      background-color: var(--toggle-background-hover);
+      border-color: var(--toggle-background-border-hover);
+      .batcast-toggle-icon {
+        background-color: var(--toggle-icon-color-hover);
+      }
+    }
+    .batcast-navigation {
+      .batcast-navigation-icon-right {
+        border-color: var(--navigation-icon-color-hover);
+      }
+    }
+  }
+  &.on {
+    .batcast-toggle {
+      .batcast-toggle-icon {
+        background-color: var(--toggle-icon-color-on);
+        left: 18px;
+        top: 2px;
+        animation-name: toggleLeft;
+        animation-duration: 0.5s;
+      }
+    }
+    &:hover:not(:disabled) {
+      .batcast-toggle {
+        .batcast-toggle-icon {
+          background-color: var(--toggle-icon-color-on-hover);
+        }
+      }
+    }
+    &.fixed {
+      .batcast-toggle {
+        .batcast-toggle-icon {
+          animation: none;
+        }
+      }
+    }
+  }
+  &.inline {
+    display: block;
+    float: left;
+    height: 36px;
+    width: 52px;
+    margin: 0;
+    padding: 0;
+    background-color: transparent !important;
+    .batcast-toggle {
+      right: 2px;
+      top: 2px;
+    }
+  }
+}
+.label-lede {
+  padding: 0.5rem 0;
+  font-weight: 600;
+}
+
+.holds-toggle {
+  display: block;
+  min-height: 36px;
+  label.toggle-button-description {
+    display: inline-block;
+    padding: 6px 0 0 9px;
+    font-weight: normal;
+  }
+}
+
+.button-list {
+  button:last-child {
+    padding-bottom: 1rem;
+  }
+}
+
+@keyframes toggleLeft {
+  from {
+    left: 2px;
+  }
+  to {
+    left: 18px;
+  }
+}
+
+@keyframes toggleRight {
+  from {
+    left: 18px;
+  }
+  to {
+    left: 2px;
+  }
+}

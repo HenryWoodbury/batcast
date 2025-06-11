@@ -8,6 +8,7 @@
 
     // https://www.typescriptlang.org/tsconfig/#moduleResolution
     "moduleResolution": "NodeNext",
+    "resolveJsonModule": true,
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",

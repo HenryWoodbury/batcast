@@ -1,0 +1,373 @@
+:root {
+  --batcast-extended-width: 200px;
+  --batcast-extended-game-width: 290px;
+  --ottoneu-neutral: rgb(217,219,219);
+  --ottoneu-zebra-stripe: rgb(224, 237, 255);
+  --ottoneu-header-color: #rgb(56, 69, 90);
+  --ottoneu-body-color: rgb(104, 112, 112);
+  --ottoneu-split-color: #rgb(56, 69, 90);
+  --ottoneu-split-inverse-color: white;
+  --ottoneu-split-match-color: black;
+  --ottoneu-split-unknown-match-border-color: rgb(163, 167, 167);
+  --ottoneu-split-unknown-match-color: rgb(163, 167, 167);
+  --ottoneu-split-unknown-match-background: rgb(163, 167, 167);
+  --ottoneu-split-unknown-match-border-color: rgb(163, 167, 167);
+  --ottoneu-neutral-park-background: inherit;
+  --ottoneu-neutral-park-border-color: rgb(217,219,219);
+  --ottoneu-neutral-park-color: rgb(217,219,219);
+}
+
+.batcast-icon-button {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  text-decoration: none;
+  opacity: 0.85;
+  box-shadow: none;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  &.batcast-disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+  .batcast-icon-button-icon {
+    position: absolute;
+    display: block;
+    left: 3px;
+    top: 3px;
+    width: 16px;
+    height: 16px;
+    background-color: black;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    &.batcast-reset {
+      mask-image: url('data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2716%27%20height%3D%2716%27%3E%3Cpath%20fill%3D%27%23000%27%20fill-rule%3D%27evenodd%27%20d%3D%27m7.5%206-5-3%205-3v2.018Q7.748%202%208%202a7%207%200%201%201-6.982%207.5h1.504A5.5%205.5%200%201%200%207.5%203.522z%27%2F%3E%3C%2Fsvg%3E');
+    }
+    &.batcast-settings {
+      mask-image: url('data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2716%27%20height%3D%2716%27%3E%3Cg%20fill%3D%27%23000%27%20fill-rule%3D%27evenodd%27%3E%3Cpath%20d%3D%27M13.6%200a.8.8%200%200%201%20.8.8v5.6h-1.6V.8a.8.8%200%200%201%20.8-.8M13.6%2016a.8.8%200%200%201-.8-.8V9.6h1.6v5.6a.8.8%200%200%201-.8.8M16%208a.8.8%200%200%201-.8.8H12a.8.8%200%201%201%200-1.6h3.2a.8.8%200%200%201%20.8.8M8%200a.8.8%200%200%201%20.8.8v8.8H7.2V.8A.8.8%200%200%201%208%200M8%2016a.8.8%200%200%201-.8-.8v-2.4h1.6v2.4a.8.8%200%200%201-.8.8M10.4%2011.2a.8.8%200%200%201-.8.8H6.4a.8.8%200%201%201%200-1.6h3.2a.8.8%200%200%201%20.8.8M2.4%2016a.8.8%200%200%201-.8-.8V6.4h1.6v8.8a.8.8%200%200%201-.8.8M2.4%200a.8.8%200%200%201%20.8.8v2.4H1.6V.8a.8.8%200%200%201%20.8-.8M0%204.8A.8.8%200%200%201%20.8%204H4a.8.8%200%201%201%200%201.6H.8a.8.8%200%200%201-.8-.8%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E');
+    }
+  }
+  &.batcast-mask-inverse {
+    &.batcast-disabled {
+      opacity: 0.5;
+    }
+    .batcast-icon-button-icon {
+      background-color: var(--ottoneu-split-inverse-color);
+    }
+    &:hover {
+      &:not(.batcast-disabled) {
+        border-color: rgba(255, 255, 255, .5);
+      }
+    }
+  }
+  &:hover {
+    &:not(.batcast-disabled) {
+      border-color: var(--ottoneu-neutral);
+      opacity: 1;
+    }
+  }
+}
+
+.batcast-player-name-cell {
+  position: relative;
+  padding-right: 56px;
+  .batcast-player-tag {
+    display: block;
+  }
+  /* no restricted list */
+  &.on-restricted-list {
+    background: inherit !important;
+  }
+  /* distinct on-their-trade-block color */
+  &.on-their-trade-block {
+    background-color: var(--ottoneu-zebra-stripe) !important;
+  }
+}
+
+.batcast-aggregate {
+  .batcast-aggregate-extended {
+    .batcast-icon-button {
+      display: block;
+      position: absolute;
+      top: 4px;
+      z-index: 10;
+      &.batcast-wrapper-settings {
+        left: 290px;
+      }
+      &.batcast-wrapper-reset {
+        left: 320px;
+      }
+    }
+    &.batcast-woba-extended {
+      &.batcast-show {
+        border-right-color: var(--ottoneu-neutral);
+        width: var(--batcast-extended-width);
+        animation-name: slideOpenWoba;
+        animation-duration: 0.25s;
+      }
+      &.batcast-hide {
+        width: 0px;
+        animation-name: slideClosedWoba;
+        animation-duration: 0.25s;
+      }
+      .batcast-woba-vslhp,
+      .batcast-woba-vsrhp {
+        position: absolute;
+        display: block;
+        width: 95px;
+        text-align: center;
+        top: 0px;
+      }
+      .batcast-woba-vslhp {
+        left: 0px;
+      }
+      .batcast-woba-vsrhp {
+        left: 95px;
+      }
+    }
+    &.batcast-pf-extended {
+      &.batcast-show {
+        animation-name: slideOpen;
+        width: var(--batcast-extended-game-width);
+      }
+      &.batcast-hide {
+        animation-name: slideClosed;
+      }
+      .batcast-woba-vslhp {
+        left: 5px;
+        width: 85px;
+      }
+      .batcast-woba-vsrhp {
+        left: 90px;
+        width: 85px;
+      }
+      .batcast-aggregate-vs-park {
+        left: 180px;
+        width: 55px;
+      }
+    }
+  }
+}
+
+.batcast-aggregate {
+  &.batcast-on {
+    width: 44px;
+  }
+  .batcast-aggregate-base {
+    display: block;
+    height: 100%;
+    line-height: 33px;
+    width: 40px;
+    padding: 0 2px 0 0;
+    text-align: center;
+  }
+  .batcast-aggregate-extended {
+    display: block;
+    height: 100%;
+    line-height: 33px;
+    position: absolute;
+    left: 40px;
+    top: 0px;
+    width: 0px;
+    font-weight: 400;
+    overflow: hidden;
+    &.batcast-show {
+      animation-name: slideOpen;
+      animation-duration: 0.25s;
+      width: var(--batcast-extended-game-width);
+      border-right-width: 1px;
+      border-right-style: solid;
+    }
+    &.batcast-hide {
+      animation-name: slideClosed;
+      animation-duration: 0.25s;
+      width: 0px;
+    }
+    strong {
+      font-weight: 700;
+    }
+    .batcast-aggregate-order {
+      display: block;
+      position: absolute;
+      font-weight: 700;
+      left: 8px;
+      top: 8px;
+      padding: 0.1rem 0 0 0;
+      line-height: 1;
+      height: 16px;
+      width: 1em;
+      font-size: 13px;
+      text-align: center;
+      border: none;
+      &.batcast-aggregate-order-na {
+        background-color: transparent !important;
+        color: transparent !important;
+      }
+      &.batcast-aggregate-order-x {
+        top: 10px;
+        left: 8px;
+        border-radius: 6px;
+        padding: 0;
+        height: 12px;
+        width: 12px;
+        font-weight: 400;
+        font-size: 0.6rem;
+        line-height: 1;
+        border: none;
+        &::before {
+          display: inline-block;
+          padding: 0.04rem 0 0 0.04rem;
+          content: "\00d7";
+        }
+      }
+    }
+    .batcast-aggregate-vs-pitcher,
+    .batcast-aggregate-vs-park,
+    .batcast-aggregate-vs-batter {
+      display: block;
+      position: absolute;
+      top: 0px;
+      padding: 0 2px;
+      text-align: left;
+    }
+    .batcast-aggregate-vs-pitcher {
+      left: 30px;
+      width: 95px;
+    }
+    .batcast-aggregate-vs-park {
+      left: 125px;
+      width: 55px;
+    }
+    .batcast-aggregate-vs-batter {
+      left: 180px;
+      width: 95px;
+    }
+  }
+}
+
+.batcast-player-tag {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: calc(100% - 40px);
+  font-weight: 700;
+  font-size: 12px;
+  height: 100%;
+  line-height: 33px;
+  width: 40px;
+  color: var(--ottoneu-header-color);
+  border-width: 0 0 0 1px;
+  border-style: solid;
+  border-color: transparent;
+  &.batcast-aggregate {
+    cursor: pointer;
+  }
+  &.batcast-aggregate-na {
+    cursor: default;
+    font-weight: 500;
+  }
+  &.batcast-aggregate-na-active {
+    font-weight: 600;
+  }
+  &.batcast-woba {
+    border-color: transparent !important;
+    &.batcast-on {
+      background-color: white !important;
+      border-color: var(--ottoneu-neutral) !important;
+    }
+  }
+  .batcast-gameInfo {
+    position: absolute;
+    top: 0;
+    left: 60px;
+    height: 24px;
+    width: 100px;
+    .batcast-gameInfo-at,
+    .batcast-gameInfo-park,
+    .batcast-gameInfo-vs,
+    .batcast-gameInfo-p {
+      position: absolute;
+      top: 0;
+      height: 24px;
+      width: 24px;
+      text-align: center;
+      border-color: transparent;
+      color: var(--ottoneu-body-color);
+      font-weight: normal;
+    }
+    .batcast-gameInfo-at {
+      left: 0;
+      width: 16px;
+    }
+    .batcast-gameInfo-park {
+      left: 18px;
+      width: 36px;
+      border-style: solid;
+      border-width: 1px;
+      background-color: var(--ottoneu-neutral-park-background);
+      border-color: var(--ottoneu-neutral-park-border-color);
+      color: var(--ottoneu-neutral-park-color);
+      font-weight: 700;
+    }
+    .batcast-gameInfo-vs {
+      left: 57px;
+      width: 15px;
+      font-weight: normal;
+    }
+    .batcast-gameInfo-p {
+      left: 76px;
+      width: 24px;
+      border-radius: 12px;
+      border-style: solid;
+      border-width: 1px;
+      background-color: var(--ottoneu-split-unknown-match-background);
+      border-color: var(--ottoneu-split-unknown-match-border-color);
+      color: var(--ottoneu-split-unknown-match-color);
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 22px;
+      &.batcast-p {
+        border-color: var(--ottoneu-split-match-color) !important;
+        color: var(--ottoneu-color-split-text-color);
+        border-width: 2px;
+        line-height: 20px;
+      }
+    }
+  }
+}
+
+@keyframes slideOpen {
+  from {
+    width: 0px;
+  }
+  to {
+    width: var(--batcast-extended-game-width);
+  }
+}
+
+@keyframes slideClosed {
+  from {
+    width: var(--batcast-extended-game-width);
+  }
+  to {
+    width: 0px;
+  }
+}
+
+@keyframes slideOpenWoba {
+  from {
+    width: 0px;
+  }
+  to {
+    width: var(--batcast-extended-width);
+  }
+}
+
+@keyframes slideClosedWoba {
+  from {
+    width: var(--batcast-extended-width);
+  }
+  to {
+    width: 0px;
+  }
+}

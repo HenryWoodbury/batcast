@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Batcast: A heads up display for setting faster fantasy baseball lineups</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="styles/popup.css">
+</head>
+
+<body>
+  <main id="ompop">
+
+    <h1>
+      <img src="icons/icon-48.png" class="logo" alt="" height="48" />
+      Batcast
+    </h1>
+
+    <p>Integrated batting splits for setting faster fantasy baseball lineups.</p>
+
+    <div class="button-list">
+
+      <button type="button" class="batcast-toggle-button fixed" id="toggleDefaultStyling">
+        <span class="batcast-button-header">Use default Batcast styling</span>
+        <span class="batcast-button-label">Apply an opinionated custom style.</span>
+        <span class="batcast-toggle">
+          <span class="batcast-toggle-icon"></span>
+        </span>
+      </button>
+
+      <button type="button" class="batcast-toggle-button fixed" id="toggleDefaultMetrics">
+        <span class="batcast-button-header">Use default Batcast ratings</span>
+        <span class="batcast-button-label">Apply ratings to selected players.</span>
+        <span class="batcast-toggle">
+          <span class="batcast-toggle-icon"></span>
+        </span>
+      </button>
+
+      <button type="button" class="batcast-navigation-button" id="customizeStyles">
+        <span class="batcast-button-header">Connect your own data</span>
+        <span class="batcast-button-label">Connect to your own Google Sheet to apply your own ratings.</span>
+        <span class="batcast-navigation">
+          <span class="batcast-navigation-icon-right"></span>
+        </span>
+      </button>
+    </div>
+
+  </main>
+
+  <script src="popup.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+/* Override the typography */
+* {
+  font-family: system-ui, sans-serif;
+  text-transform: none;
+}
+
+/* Shorten the League Name */
+.league-home-tab {
+  max-width: 200px;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.league-home-tab a {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 64px;
+}
+
+.nav--primary {
+  width: auto !important;
+}
+
+/* Add padding to popup windows */
+#DOMWindow {
+  padding: 0 1rem 0.5rem !important;
+}

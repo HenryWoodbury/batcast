@@ -4,9 +4,10 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        side_panel: "index.html",
         background: "src/background/index.ts",
-        content: "src/content/index.ts",
+        content: "src/content/content.ts",
+        popup: "src/pages/popup.ts",
+        options: "src/pages/options.ts",
       },
       output: {
         entryFileNames: "[name].js",

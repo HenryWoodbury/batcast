@@ -1,0 +1,7 @@
+@import url('global.css');
+@import url('buttons.css');
+
+#ompop {
+  min-width: 400px;
+  min-height: 300px;
+}

@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Batcast Options</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="styles/options.css">
+</head>
+
+<body>
+  <main id="main">
+
+    <h1>
+      <img src="icons/icon-48.png" class="logo" alt="" height="48" />
+      Batcast
+    </h1>
+
+    <section class="data-section">
+
+      <h2>Connect your own data</h2>
+
+      <p>
+        To connect custom data, simply authorize Batcast to access a Google sheet with your own batter 
+        and pitcher ratings. You can also provide your own limits data to modify Batcast's conditional 
+        formatting ranges and colors.
+      </p>
+
+      <p>
+        For help use the <a href="templates/BatcastTemplate.zip" target="_blank">Batcast Template</a> 
+        as a starting point. The Batcast Template is an CSV file that can be uploaded to Google Drive
+        and converted to a Google sheet for use with Batcast. Custom data must use the same columns in 
+        the same order to validate correctly.
+      </p>
+
+      <p>
+        Custom ratings and limits will be merged with and override default Batcast ratings and limits.
+      </p>
+
+      <p>
+        For park factors, Batcast uses 
+        <a href="https://baseballsavant.mlb.com/leaderboard/statcast-park-factors" target="_blank">Baseball Savant, 
+        3 year average, bat side R, bat side L</a>. This is not yet overridable. 
+      </p>
+
+      <section class="default-section">
+        <p>
+          <span class="label-lede">Use default Batcast styling</span>
+          <span class="holds-toggle">
+            <button type="button" class="batcast-toggle-button inline fixed" id="defaultStyling">
+              <span class="batcast-toggle">
+                <span class="batcast-toggle-icon"></span>
+              </span>
+            </button>
+            <label for="defaultStyling" class="toggle-button-description">
+              Apply an opinionated custom style.
+            </label>
+          </span>
+        </p>
+        <p>
+          <span class="label-lede">Use default Batcast ratings</span>
+          <span class="holds-toggle">
+            <button type="button" class="batcast-toggle-button inline fixed" id="defaultMetrics">
+              <span class="batcast-toggle">
+                <span class="batcast-toggle-icon"></span>
+              </span>
+            </button>
+            <label for="defaultMetrics" class="toggle-button-description">
+              Apply ratings to selected players.
+            </label>
+          </span>
+        </p>
+      </section>
+  
+    </section>
+    <section class="data-section">
+
+      <h3>Custom data</h3>
+
+      <form class="connect" id="customMetrics">
+        <p>
+          <label for="connectSheetId">
+            Sheet ID
+          </label>
+          <input id="connectSheetId" type="text" placeholder="Google Sheet ID" />  
+        </p>
+        <p>
+          <label for="connectBatterRange">
+            Batters range
+          </label>
+          <input id="connectBatterRange" type="text" placeholder="Range for batter data, typically Batters!A:S" /> 
+        </p>
+        <p>
+          <label for="connectPitcherRange">
+            Pitchers range
+          </label>
+          <input id="connectPitcherRange" type="text" placeholder="Range for pitcher data, typically Pitchers!A:O" /> 
+        </p>
+        <p>
+          <label for="connectLimitRange">
+            Limits range
+          </label>
+          <input id="connectLimitRange" type="text" placeholder="Range for limit data, typically Limits!A:J" /> 
+        </p>
+        <div class="form-footer">
+          <p>
+            <button id="connectButton" type="submit">
+              <span class="label">Connect</span>
+              <span class="loader">Waiting...</span>
+            </button>
+            <button id="disconnectButton">
+              <span class="label">Disconnect</span>
+              <span class="loader">Waiting...</span>
+            </button>
+          </p>
+        </div>
+
+        <div id="formFeedback" class="form-feedback hide"></div>
+
+      </form>
+
+    </section>
+
+    <section class="hide error-section" id="dataError"></section>
+
+    <section class="sheets hide" id="dataToSave">
+
+      <h2>
+        Data to save
+        <span class="options" style="left: 200px; top: -1px">
+          <button id="toSaveAll">
+            <span class="label">Save All</span>
+            <span class="loader">Waiting...</span>
+          </button>
+          <button id="toSaveAbandonAll" class="tertiary">Clear All</button>
+        </span>
+      </h2>
+
+      <div id="overwriteWarning" class="hide">
+        <p>
+          <strong>Save</strong> will overwrite saved data. Rows with errors or duplicate IDs will not be saved. 
+        </p>
+        <p>
+          <strong>Remove duplicates</strong> will clear any rows with duplicate IDs after the first instance.
+        </p>
+      </div>
+
+      <div id="battersToSave" class="hide player-block">
+
+        <h3>
+          Batters data
+          <span class="options" style="left: 200px; top: -1px;">
+            <button id="battersToSaveSave">
+              <span class="label">Save</span>
+              <span class="loader">Waiting...</span>
+            </button>
+            <button id="battersToSaveAbandon" class="tertiary">Clear</button>
+          </span>
+        </h3>
+
+        <section class="hide validation-section" id="battersValidation"></section>
+
+        <div id="battersToSaveTableWrapper" class="hide grid"></div>
+
+      </div>
+      
+      <div id="pitchersToSave" class="hide player-block">
+
+        <h3>
+          Pitchers data
+          <span class="options" style="left: 200px; top: -1px;">
+            <button id="pitchersToSaveSave">
+              <span class="label">Save</span>
+              <span class="loader">Waiting...</span>
+            </button>
+            <button id="pitchersToSaveAbandon" class="tertiary">Clear</button>
+          </span>
+        </h3>
+
+        <section class="hide validation-section" id="pitchersValidation"></section>
+
+        <div id="pitchersToSaveTableWrapper" class="hide grid"></div>
+
+      </div>
+
+      <div id="limitsToSave" class="hide player-block">
+
+        <h3>
+          Limits data
+          <span class="options" style="left: 200px; top: -1px;">
+            <button id="limitsToSaveSave">
+              <span class="label">Save</span>
+              <span class="loader">Waiting...</span>
+            </button>
+            <button id="limitsToSaveAbandon" class="tertiary">Clear</button>
+          </span>
+        </h3>
+
+        <section class="hide validation-section" id="limitsValidation"></section>
+
+        <div id="limitsToSaveTableWrapper" class="hide grid"></div>
+
+      </div>
+
+    </section>
+
+    <section class="sheets hide" id="dataSaved">
+
+      <h2>
+        Saved data
+        <span class="options" style="left: 200px; top: -1px;">
+          <button id="savedAbandonAll" class="tertiary">Clear All</button>
+        </span>
+      </h2>
+
+      <p id="updateWarning" class="hide">
+        If you don't see custom data reflected in your lineup, refresh the tab.
+      </p>
+
+      <div id="battersSaved" class="hide player-block">
+
+        <h3>
+          Batters data
+          <span class="options" style="left: 200px; top: -1px;">
+            <button id="battersSavedAbandon" class="tertiary">Clear</button>
+          </span>
+        </h3>
+
+        <div id="battersSavedTableWrapper" class="hide grid"></div>
+
+      </div>
+
+      <div id="pitchersSaved" class="hide player-block">
+
+        <h3>
+          Pitchers data
+          <span class="options" style="left: 200px; top: -1px;">
+            <button id="pitchersSavedAbandon" class="tertiary">Clear</button>
+          </span>
+        </h3>
+
+        <div id="pitchersSavedTableWrapper" class="hide grid"></div>
+
+      </div>
+
+      <div id="limitsSaved" class="hide player-block">
+
+        <h3>
+          Limits data
+          <span class="options" style="left: 200px; top: -1px;">
+            <button id="limitsSavedAbandon" class="tertiary">Clear</button>
+          </span>
+        </h3>
+
+        <div id="limitsSavedTableWrapper" class="hide grid"></div>
+
+      </div>
+
+    </section>
+
+  </main>
+  <script src="options.js"></script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+:root {
+  --global-font-family: system-ui, sans-serif;
+  --global-font-size-system: 16px;
+  --global-heading-font-family: Avenir Next, system-ui, sans-serif;
+  --global-background: white;
+  --global-link-color: #2B72CB;
+  --global-link-color-hover: #2666B5;
+}
+
+:root {
+  padding: 0;
+  margin: 0;
+  font-family: var(--global-font-family);
+  font-size: var(--global-font-size);
+  background-color: var(--global-background);
+  line-height: 1.5;
+  width: 100%;
+}
+
+a,
+a:link,
+a:active,
+a:visited {
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--global-link-color);
+}
+
+a:hover {
+  text-decoration: underline;
+  color: var(--global-link-color-hover);
+}
+
+strong {
+  font-weight: 700;
+}
+
+p, h1, h2, h3 {
+  margin: 0;
+}
+
+ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+h1 {
+  padding: 1rem 20px 0.5rem;
+  font-family: var(--global-heading-font-family);
+  text-transform: uppercase;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+h2 {
+  padding: 0rem 20px 0.5rem;
+  font-family: var(--global-heading-font-family);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+h3 {
+  padding: 0rem 20px 0.5rem;
+  font-family: var(--global-heading-font-family);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+p {
+  font-size: 1rem;
+  padding: 0 20px 0.5rem;
+}
+
+.logo {
+  height: 40px;
+  transform: translate(0, 0.5rem);
+}
+
+.hide {
+  display: none;
+}

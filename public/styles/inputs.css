@@ -1,0 +1,140 @@
+@import url('loaders.css');
+
+:root {
+  --button-font-family: Avenir Next, system-ui, sans-serif;
+  --input-border-color: #a3a3a3;
+  --input-border-color-disabled: #dcdcdc;
+  --input-placeholder-color: #a3a3a3;
+  --button-color: #000000;
+  --button-background: #f1f1f1;
+  --button-background-hover: #e5e5e5;
+  --button-border-color: #d9d9d9;
+  --button-border-color-hover: #cecece;
+  --button-color-disabled: #989898;
+  --button-background-disabled: #f8f8f8;
+  --button-border-color-disabled: #d1d1d1;
+  --submit-color: white;
+  --submit-background: #307fe2;
+  --submit-background-hover: #2666b5;
+  --submit-border-color: #2666b5;
+  --submit-border-color-hover: #22599E;
+  --submit-color-disabled: white;
+  --submit-background-disabled: #9bbff1;
+  --submit-border-color-disabled: #95b3d9;
+}
+
+input,
+label {
+  display: block;
+}
+
+label {
+  padding: 0.5rem 0;
+  font-weight: 600;
+}
+
+input {
+  width: 100%;
+  font-size: 1rem;
+  border-radius: 2px;
+  padding: 0.6rem 8px;
+  border: 1px solid var(--input-border-color);
+}
+
+input::placeholder {
+  color: var(--input-placeholder-color);
+  font-weight: 200;
+}
+
+button {
+  position: relative;
+  padding: 0.5rem 20px;
+  margin-right: 0.5rem;
+  border-radius: 2px;
+  font-weight: 500;
+  font-family: var(--button-font-family);
+  font-size: 1rem;
+  border: 1px solid var(--input-border-color);
+  background-color: var(--button-background);
+  color: var(--button-color);
+  overflow: hidden;
+  .loader {
+    display: none;
+    position: absolute;
+    top: calc(50% - 1rem);
+    left: calc(50% - 1rem);
+  }
+  &:hover:not(:disabled) {
+    background-color: var(--button-background-hover);
+  }
+  &:disabled {
+    color: var(--button-color-disabled);
+    border-color: var(--button-border-color-disabled);
+    background-color: var(--button-background-disabled);
+  }
+  &.spinner {
+    color: var(--button-color-disabled);
+    border-color: var(--button-border-color-disabled);
+    background-color: var(--button-background-disabled);
+    .loader {
+      display: block
+    }
+    .label {
+      visibility: hidden
+    }
+    &:hover {
+      background-color: var(--button-background-disabled);
+    }
+  }
+}
+
+button {
+  &.primary,
+  &[type="submit"] {
+    border: 1px solid var(--submit-border-color);
+    background-color: var(--submit-background);
+    color: var(--submit-color);
+    &:hover:not(:disabled) {
+      background-color: var(--submit-background-hover);
+      border-color: var(--submit-border-color-hover);
+      color: var(--submit-color);
+    }
+    &:disabled {
+      color: var(--submit-color-disabled);
+      border-color: var(--submit-border-color-disabled);
+      background-color: var(--submit-background-disabled);
+    }
+    &.spinner {
+      color: var(--submit-color-disabled);
+      border-color: var(--submit-border-color-disabled);
+      background-color: var(--submit-background-disabled);
+      &:hover {
+        color: var(--submit-color-disabled);
+        border-color: var(--submit-border-color-disabled);
+        background-color: var(--submit-background-disabled);
+      }
+    }
+  }
+  &.tertiary {
+    border-color: var(--button-border-color);
+    background-color: transparent;
+    &:hover {
+      border-color: var(--button-border-color-hover);
+      background-color: var(--button-background);
+    }
+  }
+}
+
+.options {
+  position: absolute;
+  top: 0;
+  left: 200px;
+  button {
+    padding: 0.25rem 15px;
+  }
+}
+
+.inline-loader {
+  position: relative;
+  display: inline-block;
+}

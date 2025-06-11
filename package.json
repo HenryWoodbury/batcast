@@ -1,16 +1,21 @@
 {
-  "name": "v",
+  "name": "batcast",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "build-watch": "vite build --watch"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.326",
     "typescript": "~5.8.3",
     "vite": "^6.3.5"
+  },
+  "dependencies": {
+    "@types/papaparse": "^5.3.16",
+    "convert-csv-to-json": "^3.4.0",
+    "nanoid": "^5.1.5",
+    "papaparse": "^5.5.3"
   }
 }
