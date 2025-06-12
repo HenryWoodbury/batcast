@@ -9,16 +9,14 @@ export default defineConfig({
         settings: "src/content/settings.ts",
         popup: "src/pages/popup.ts",
         options: "src/pages/options.ts",
-        batcast: './src/pages/batcast.ts',
-        players: './src/pages/players.ts',
+        batcast: "src/pages/batcast.ts",
+        players: "src/pages/players.ts",
       },
       output: {
-        entryFileNames: "[name].js",
-
+        entryFileNames: "[name].js"
       },
     },
     outDir: "dist",
     target: 'modules',
-    assetsInlineLimit: 153600
   },
 });

@@ -28,6 +28,10 @@
     }
   ],
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnTDpNHXHmVeDlXmozEY4t0lpz6eb0ACFbhka5agYr4VB449/29woB8pCfRBUMiF5AP5TZcp7hKPY19ro7v/6io6AnU8b+e/cKkav7ZznFsBHce8RbxWARqwL+5YxY4dfKsGhjDxqgii5b0m4CFkwYE/Btg6TYNDwZRB9Y6+IOGRH4gCj2Owg2MsXB4Olvt9vnuxtgbNNzufDBr2+ZVpeLYcecuQT1gtpdBJmNzHnPccIV1o4sdimBp3e9AELKiIyx8avXkhUuwmkp2NrTcNAxI4AGCzi2czPbrhHj2OpC53voXRuAaGThzP0TmfPoUVCg6mCBdtekpBbj+5WrO3+UQIDAQAB",
+  "oauth2": {
+    "client_id": "611629142510-ae4d4092uqvjurk3qaatgqm0dvj05m2q.apps.googleusercontent.com",
+    "scopes": ["https://www.googleapis.com/auth/spreadsheets.readonly"]
+  },
   "options_ui": {
     "page": "options.html",
     "open_in_tab": true

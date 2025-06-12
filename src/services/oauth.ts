@@ -1,4 +1,7 @@
-import { type SheetRange, type ErrorType } from '../lib/types.ts';
+import {
+  type SheetRange, 
+  type ErrorType 
+} from '../lib/types.ts';
 
 export const getSheetData = (
   sheet: string, 

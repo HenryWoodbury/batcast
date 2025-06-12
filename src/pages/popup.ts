@@ -27,7 +27,7 @@ CUSTOMIZE_STYLES_BUTTON?.addEventListener('click', () => {
 
 DEFAULT_STYLING_BUTTON?.addEventListener('click', (event) => {
   event.preventDefault();
-  getCurrentTab().then(tab => {
+  getCurrentTab().then((tab: chrome.tabs.Tab) => {
     const isTurningOff = DEFAULT_STYLING_BUTTON.classList.contains('on');
     if (isTurningOff) {
       applyDefaultStyles(tab, storageInsertActions.UNSET);
@@ -51,7 +51,7 @@ DEFAULT_STYLING_BUTTON?.addEventListener('click', (event) => {
 
 DEFAULT_METRICS_BUTTON?.addEventListener('click', (event) => {
   event.preventDefault();
-  getCurrentTab().then(tab => {
+  getCurrentTab().then((tab: chrome.tabs.Tab) => {
     const isTurningOff = DEFAULT_METRICS_BUTTON.classList.contains('on');
     if (isTurningOff) {
       applyDefaultMetrics(tab, storageInsertActions.UNSET);

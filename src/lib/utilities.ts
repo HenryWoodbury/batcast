@@ -4,6 +4,7 @@ import {
   setStorageItem, 
   getStorageItem, 
   storageInsertActions 
+//@ts-ignore
 } from './storage.ts';
 import { 
   type Batter,
@@ -20,7 +21,7 @@ import {
   type ValidationData,
   type CustomTableRecord,
   type StorageData
- } from './types.ts';
+} from './types.ts';
 import {
   UNKNOWN_PITCHER_SPLIT,
   DEFAULT_PITCHER,
@@ -32,6 +33,7 @@ import {
   DEFAULT_CSS, 
   PLAYERS_CSS, 
   UPDATE_METRICS
+//@ts-ignore
 } from './constants.ts';
 import { translation } from '../locales/translation.ts';
 import { validateDataObject } from './validations.ts';
@@ -171,12 +173,12 @@ export const createDataObject = (
     return { dataObject, fatalError };
   }
   const arrayKeys = dataArray.shift();
-  const hasOnlyValidKeys = arrayKeys && arrayKeys.every(val => dataKeys.includes(val.replace(/\s+/g, '')));
+  const hasOnlyValidKeys = arrayKeys && arrayKeys.every((val: string) => dataKeys.includes(val.replace(/\s+/g, '')));
   if (!hasOnlyValidKeys) {
     const fatalError = `${dataName} sheet has invalid columns.`;
     return { dataObject, fatalError };
   }
-  dataArray.forEach((entry) => {
+  dataArray.forEach((entry: string[]) => {
     const customData = {} as ValidationData;
     // Validation done outside of loop since it requires comparisons between fields
     const validations = validateDataObject(dataType, entry);
@@ -224,7 +226,7 @@ export const getValidData = (
     }
     const validRow = {} as StorageData;
     const filteredRow = {} as ValidationData;
-    customDataObject.columns.forEach((column) => {
+    customDataObject.columns.forEach((column: string) => {
       filteredRow[column] = { ...dataRow[column] };
       validRow[column] = dataRow[column].value || '';
     });
