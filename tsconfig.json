@@ -24,7 +24,11 @@
   },
   "exclude": [
     "node_modules",
-    "public_html"
+    "public_html",
+    "dist",
   ],
-  "include": ["src"]
+  "include": [
+    "src",
+    "rollup.config.mjs"
+  ]
 }

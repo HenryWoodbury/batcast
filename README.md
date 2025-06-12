@@ -35,6 +35,6 @@ One alternative to the custom scripting described in that thread is to use rollu
 
 [Rollup](https://www.npmjs.com/package/rollup) utilizes standard ES module imports and exports to optimize library bundling. Ironically its value in the case of bundling an extension is that it supports using an array of individual input and output entry points, each set to `inlineDynamicImports: true`.
 
-https://dev.to/bhargab/rollupjs-made-easy-a-step-by-step-guide-to-building-and-publishing-npm-packages-1c1k
+The actual implementation utilizes several plugins, including the [@rollup-extras/plugin-copy](https://www.npmjs.com/package/@rollup-extras/plugin-copy) for copying over html, css, and binary files.
 
-(How to Create an NPM Package Using Rollup.js)[https://medium.com/@wahidsaeed1/how-to-create-an-npm-package-using-rollup-js-f9dabff60b8d]
+The input files that directly import JSON require [@rollup/plugin-json](https://www.npmjs.com/package/@rollup/plugin-json) as a plugin.
