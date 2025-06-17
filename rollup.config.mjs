@@ -30,6 +30,7 @@ export default [{
     inlineDynamicImports: true,
   },
   plugins: [
+    json(),
     terser(),
     typescript({
       tsconfig: './tsconfig.json',
@@ -76,6 +77,7 @@ export default [{
     inlineDynamicImports: true,
   },
   plugins: [
+    json(),
     terser(),
     typescript({
       tsconfig: './tsconfig.json',

@@ -1,10 +1,8 @@
-import { customAlphabet } from 'nanoid';
 import {
   STORAGE_KEYS, 
   setStorageItem, 
   getStorageItem, 
   storageInsertActions 
-//@ts-ignore
 } from './storage.ts';
 import { 
   type Batter,
@@ -25,6 +23,7 @@ import {
 import {
   UNKNOWN_PITCHER_SPLIT,
   DEFAULT_PITCHER,
+  LEAGUE_FIP,
   LEAGUE_LHBvLHP,
   LEAGUE_RHBvLHP,
   LEAGUE_LHBvRHP,
@@ -33,7 +32,6 @@ import {
   DEFAULT_CSS, 
   PLAYERS_CSS, 
   UPDATE_METRICS
-//@ts-ignore
 } from './constants.ts';
 import { translation } from '../locales/translation.ts';
 import { validateDataObject } from './validations.ts';
@@ -131,35 +129,50 @@ export const applyTagStyles = async(tab: chrome.tabs.Tab) => {
   });
 }
 
-export const hide = (el: HTMLElement) => {
+type ElementArgument = HTMLElement | null | undefined;
+
+export const hide = (el: ElementArgument) => {
+  if (!el) return;
   el.classList.add('hide');
 }
 
-export const show = (el: HTMLElement) => {
+export const show = (el: ElementArgument) => {
+  if (!el) return;
   el.classList.remove('hide');
 }
 
-export const disable = (el: HTMLElement) => {
+export const disable = (el: ElementArgument) => {
+  if (!el) return;
   el.setAttribute('disabled', 'disabled');
 }
 
-export const undisable = (el: HTMLElement) => {
+export const undisable = (el: ElementArgument) => {
+  if (!el) return;
   el.removeAttribute('disabled');
 }
 
-export const spin = (el: HTMLElement) => {
+export const spin = (el: ElementArgument) => {
+  if (!el) return;
   el.classList.add('spinner');
   el.setAttribute('disabled', 'disabled');
 }
 
-export const unspin = (el: HTMLElement) => {
+export const unspin = (el: ElementArgument) => {
+  if (!el) return;
   el.classList.remove('spinner');
 }
 
-export const unspinreset =  (el: HTMLElement) => {
+export const unspinreset =  (el: ElementArgument) => {
+  if (!el) return;
   el.classList.remove('spinner');
   el.removeAttribute('disabled');
 }
+
+export const getUniqueId = () => {
+    // crypto.randomUUID() may only be used in secure contexts (https qualifies). It returns a 36 character long v4 UUID.
+    // An HTML ID may not start with a number, so the e ensures the first character is a letter.
+    return `e${crypto.randomUUID()}`;
+};
 
 export const createDataObject = (
   dataArray: SheetRange, 
@@ -187,16 +200,15 @@ export const createDataObject = (
     });
     const id = customData[dataKeys[0]].value;
     if (!id) return;
-    // Chance of collision is very very very small with 16 characters.
-    // https://zelark.github.io/nano-id-cc/
-    const nanoCustomId = customAlphabet('1234567890abcdef', 16);
-    const nanoId = nanoCustomId();
+    // crypto.randomUUID() may only be used in secure contexts (https qualifies). It returns a 36 character long v4 UUID.
+    // An HTML ID may not start with a number, so the e ensures the first character is a letter.
+    const eId = getUniqueId();
     if (dataObject[id]) {
       dataObject[id][dataKeys[0]].error = VALIDATIONS.DUPLICATE_ID;
       customData[dataKeys[0]].error = VALIDATIONS.DUPLICATE_ID;
-      dataObject[`${id}.${nanoId}`] =  {...customData};
+      dataObject[`${id}.${eId}`] =  {...customData};
     } else if (customData[dataKeys[0]].error === VALIDATIONS.MISSING_ID) {
-      dataObject[nanoId] = {...customData};
+      dataObject[eId] = {...customData};
     } else {    
       dataObject[id] = {...customData};
     }
@@ -373,8 +385,8 @@ export const getPitcherImpact = (
   pitcherData: Pitcher,
 ) => {
   const pitcher = { ...DEFAULT_PITCHER, ...pitcherData };
-  const xFIPtoWOBA = Number(limitData.BOBA.LeagueAvg) / Number(limitData.XFIP.LeagueAvg);
-  const cWOBA = pitcher.FIP ? Number(pitcher.FIP) * xFIPtoWOBA : Number(limitData.XFIP.LeagueAvg) * xFIPtoWOBA;
+  const xFIPtoWOBA = Number(limitData.BOBA.LeagueAvg) / LEAGUE_FIP;
+  const cWOBA = pitcher.FIP ? Number(pitcher.FIP) * xFIPtoWOBA : LEAGUE_FIP * xFIPtoWOBA;
   const vsRHBc = pitcher.Throws === 'R' ? cWOBA * LEAGUE_RHBvRHP : cWOBA * LEAGUE_RHBvLHP;
   const vsLHBc = pitcher.Throws === 'L' ? cWOBA * LEAGUE_LHBvLHP : cWOBA * LEAGUE_LHBvRHP;
   return {

@@ -4,6 +4,15 @@
   "type": "module",
   "scripts": {
     "build": "rollup -c rollup.config.mjs",
+    "csvj": "node ./scripts/csvj.js",
+    "csvj:batters": "node ./scripts/csvj.js --inputFile='batters.csv'",
+    "csvj:pitchers": "node ./scripts/csvj.js --inputFile='pitchers.csv'",
+    "csvj:limits": "node ./scripts/csvj.js --inputFile='limits.csv'",
+    "csvj:parks-left": "node ./scripts/csvj.js --inputFile='pfL.csv'",
+    "csvj:parks-right": "node ./scripts/csvj.js --inputFile='pfR.csv'",
+    "csvj:parks": "npm run csvj:parks-left & npm run csvj:parks-right",
+    "csvj:players": "npm run csvj:batters & npm run csvj:pitchers",
+    "csvj:test": "node ./scripts/csvj.js --test",
     "watch": "rollup -c rollup.config.mjs -w"
   },
   "devDependencies": {
@@ -20,7 +29,6 @@
   },
   "dependencies": {
     "convert-csv-to-json": "^3.4.0",
-    "nanoid": "^5.1.5",
     "papaparse": "^5.5.3"
   }
 }

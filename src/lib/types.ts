@@ -5,7 +5,7 @@ export interface Batter {
   "FGMinorID": string;
   "MLBAMID": string;
   "Birthday": string;
-  "Position": string;
+  "Positions": string;
   "Bats"?: string;
   "Throws"?: string;
   "LastCheck"?: string;
@@ -29,7 +29,7 @@ export interface Pitcher {
   "FGMinorID": string;
   "MLBAMID": string;
   "Birthday": string;
-  "Position": string;
+  "Positions": string;
   "Bats"?: string;
   "Throws"?: string;
   "LastCheck"?: string;
@@ -52,7 +52,7 @@ export const PlayerKeys = [
   "FGMinorID",
   "MLBAMID",
   "Birthday",
-  "Position",
+  "Positions",
   "Bats",
   "Throws",
   "LastCheck",
@@ -239,6 +239,7 @@ export interface CustomTableRecord {
   dataType: string;
   columns: string[];
   storageKey: string;
+  feedbackNodeId: string;
   tableNodeId: string;
   previewNodeId: string;
   completeNodeId: string;
@@ -248,6 +249,7 @@ export interface CustomTableRecord {
   toggleErrorsId?: string;
   toggleDuplicatesId?: string;
   toSaveNode: HTMLElement | null;
+  toSaveFeedbackNode: HTMLElement | null;
   toSaveTableWrapperNode: HTMLElement | null;
   toSaveButtonNode: HTMLElement | null;
   toSaveAbandonButtonNode: HTMLElement | null;
@@ -260,7 +262,7 @@ export interface TooltipDefinition {
   element?: boolean;
   css?: string[];
   id?: string;
-  type?: "info" | "error" | "warning" | "question";
+  type?: "info" | "error" | "warning" | "question" | "success";
   tooltip: string;
   shape?: "square" | "round";
   look?: "hollow" | "filled";

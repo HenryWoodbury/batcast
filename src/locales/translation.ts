@@ -6,7 +6,7 @@ export const translation = {
     "FGMinorID": "FG Minor ID",
     "MLBAMID": "MLBAM ID",
     "Birthday": "Birthday",
-    "Position": "Position",
+    "Positions": "Positions",
     "Bats": "Bats",
     "LastCheck": "Last Check",
     "Confidence": "Confidence",

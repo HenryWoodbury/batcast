@@ -1,6 +1,5 @@
-/*
-import { addPlayerTags } from './content/actors/playerTags';
-import { observePlayerMoves } from './content/observers/playerObserver';
+import { addPlayerTags } from './actors/playerTags.ts';
+import { observePlayerMoves } from './observers/playerObserver.ts';
 import { UPDATE_METRICS } from '../lib/constants.ts';
 
 addPlayerTags();
@@ -14,4 +13,3 @@ chrome.runtime.onMessage.addListener(async (request) => {
     break;
   }
 });
-*/

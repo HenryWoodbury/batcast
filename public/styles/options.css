@@ -1,7 +1,8 @@
 @import url('global.css');
 @import url('buttons.css');
-@import url('inputs.css');
+@import url('colors.css');
 @import url('icons.css');
+@import url('inputs.css');
 
 .data-section {
   padding-top: 1rem;
@@ -11,3 +12,240 @@
     width: calc(100% - 18px);
   }
 }
+
+.default-section {
+  padding-top: 1rem;
+}
+
+.error-section {
+  padding-top: 1rem;
+  width: 640px;
+  border-top: 1px solid var(--section-rule-color);
+  margin: 1rem 20px;
+  p,
+  h2,
+  h3 {
+    padding: 0 0 0.5rem;
+  }
+}
+
+.validation-section {
+  width: 640px;
+  margin: 0 0 1rem 0;
+  color: var(--feedback-error-color);
+  p {
+    padding: 0;
+  }
+}
+
+form.connect {
+  display: block;
+}
+
+.form-footer {
+  padding: 1.5rem 0 0.5rem;
+}
+
+.form-feedback {
+  padding-top: 1rem;
+}
+
+.error {
+  color: var(--feedback-error-color);
+}
+
+.player-block:not(.hide) + .player-block:not(.hide) {
+  margin-top: 1rem;
+}
+
+.feedback-wrapper {
+  position: absolute;
+  display: inline-block;
+  left: 160px;
+  top: 1px;
+}
+
+.sheets {
+  border-top: 1px solid var(--section-rule-color);
+  padding-top: 20px;
+  margin: 1rem 20px;
+  width: calc(100% - 40px);
+
+  p {
+    padding: 0 0 0.5rem;
+  }
+
+  h2 {
+    padding: 0 0 0.5rem;
+    position: relative;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    margin-top: 1rem;
+    padding: 0 0 0.5rem;
+    position: relative;
+  }
+
+  p.table-action {
+    padding: 0.25rem 20px;
+    &.zebra {
+      background-color: var(--zebra-background-color);
+    }
+  }
+}
+
+.grid {
+  font-size: 14px;
+  .inline-actions .action {
+    display: inline-block;
+    cursor: pointer;
+    .tooltip-wrapper {
+      padding-left: 0.25rem;
+    }
+  }
+  .inline-actions .action + .action {
+    margin-left: 1rem;
+    &::before {
+      display: inline-block;
+      content: '|';
+      padding-right: 1rem;
+      color: var(--ottoneu-body-color);
+      opacity: 0.75;
+    }
+  }
+  td {
+    position: relative;
+    .tooltip-cellular {
+      &.tooltip-wrapper {
+        position: absolute;
+        left: -7px;
+        top: 5px;
+        height: 20px;
+        width: 20px;
+        z-index: 10;
+        transition: width 0.25s;
+        overflow: hidden;
+      }
+      .tooltip-icon {
+        position: absolute;
+        left: 2px;
+        top: 2px;
+        z-index: 20;
+      }
+    }
+  }
+      
+  td:first-child {
+    .tooltip-cellular {
+      &.tooltip-wrapper {
+        left: 0px;
+      }
+    }
+  }
+
+  table {
+    width: 100%;
+    margin: 0.5rem 0 0;
+    padding: 0;
+    border-spacing: 0;
+    thead {
+      tr {
+        background-color: var(--zebra-background-color);
+        th {
+          font-weight: 700;
+          border-bottom: 1px var(--zebra-background-color);
+        }
+      }
+    }
+    tbody {
+      tr:nth-child(even) {
+        background-color: var(--zebra-background-color);
+      }
+    }
+    tfoot {
+      tr {
+        td {
+          padding-bottom: 0.25rem;
+        }
+      }
+    }
+    th, 
+    td {
+      white-space: nowrap;
+      text-align: left;
+      padding: 0.25rem 10px 0 15px;
+      span.entry {
+        display: inline-block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 50px;
+      }
+    }
+    th:first-child,
+    td:first-child {
+      padding-left: 20px;
+    }
+    th:last-child,
+    td:last-child {
+      padding-left: 15px;
+    }
+    .zebra {
+      tr {
+        background-color: var(--zebra-background-color);
+      }
+    }
+    .grid-ottoneuid {
+      span.entry {
+        width: 50px;
+      }
+    }
+    .grid-name {
+      span.entry {
+        width: 120px;
+      }
+    }
+    .grid-fgid {
+      span.entry {
+        width: 50px;
+      }
+    }
+    .grid-factor,
+    .grid-mincolor,
+    .grid-avgcolor,
+    .grid-maxcolor {
+      span.entry {
+        width: 90px;
+      }
+    }
+    .grid-fgminorid,
+    .grid-mlbamid {
+      span.entry {
+        width: 70px;
+      }
+    }
+    .grid-position {
+      span.entry {
+        width: 60px;
+      }
+    }
+    .grid-bats,
+    .grid-throws {
+      span.entry {
+        width: 35px;
+      }
+    }
+    .grid-birthday,
+    .grid-lastcheck {
+      span.entry {
+        width: 90px;
+      }
+    }
+    .grid-confidence {
+      span.entry {
+        width: 70px;
+      }
+    }
+  }
+}
+

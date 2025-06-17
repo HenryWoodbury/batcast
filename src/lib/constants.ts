@@ -8,6 +8,7 @@ export const UPDATE_STYLES = 'update_styles';
 export const ROSTER_ORGANIZER = 'rosterorganizer';
 export const SET_LINEUPS = 'setlineups';
 
+export const LEAGUE_FIP = 4.08;
 export const LEAGUE_LHBvLHP = .89;
 export const LEAGUE_LHBvRHP = 1.01; 
 export const LEAGUE_RHBvLHP = 1.04; 
@@ -56,7 +57,6 @@ export const CUSTOM_DATA_TYPES = {
 export const LIMIT_IDS = {
   BOBA: 'batter wOBA',
   POBA: 'pitcher wOBA',
-  XFIP: 'pitcher xFIP',
   PF: 'park factor',
 }
 
@@ -87,6 +87,50 @@ export const VALIDATIONS = {
   WARNING_MIN: 'warningMin',
 }
 
+export const FEEDBACK_SYMBOLS = {
+  "info" : 'i',
+  "error" : '!',
+  "warning" : '\u26A0',
+  "question": '?',
+  "success": '\u2713'
+}
+
+/* 
+Good reference:
+https://www.toptal.com/designers/htmlarrows/symbols/
+
+Warning Sign
+U+026A0 UNICODE
+&#x26A0; HEX CODE
+&#9888; HTML CODE
+\26A0
+
+Baseball
+U+026BE UNICODE
+&#x26BE; HEX CODE
+&#9918; HTML CODE
+\26BE
+
+Checkmark
+U+02713 UNICODE
+&#x2713; HEX CODE
+&#10003; HTML CODE
+&check; HTML ENTITY
+\2713
+
+Line Smiling Face
+U+0263A UNICODE
+&#x263A; HEX CODE
+&#9786; HTML CODE
+\263A
+
+Fill Smiling Face
+U+0263B UNICODE
+&#x263B; HEX CODE
+&#9787; HTML CODE
+\263B
+*/
+
 export const DEFAULT_BATTER = {
   "OttoneuID": '',
   "Name": '',
@@ -94,7 +138,7 @@ export const DEFAULT_BATTER = {
   "FGMinorID": '',
   "MLBAMID": '',
   "Birthday": '',
-  "Position": '',
+  "Positions": '',
   "Bats": '',
   "LastCheck": '',
   "Confidence": '',
@@ -115,7 +159,7 @@ export const DEFAULT_PITCHER = {
   "FGMinorID": '',
   "MLBAMID": '',
   "Birthday": '',
-  "Position": '',
+  "Positions": '',
   "Throws": '',
   "LastCheck": '',
   "Confidence": '',

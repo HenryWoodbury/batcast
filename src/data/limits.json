@@ -24,18 +24,6 @@
   "LeagueAvg": "0.310"
  },
  {
-  "LimitID": "XFIP",
-  "Factor": "Pitcher FIP",
-  "Min": "3.00",
-  "Max": "5.00",
-  "Avg": "4.08",
-  "Increments": "10",
-  "MinColor": "54 97 172",
-  "AvgColor": "255 255 255",
-  "MaxColor": "216 34 41",
-  "LeagueAvg": "4.08"
- },
- {
   "LimitID": "PF",
   "Factor": "Park Factor",
   "Min": "90",

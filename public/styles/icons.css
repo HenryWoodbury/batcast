@@ -1,0 +1,117 @@
+@import url('colors.css');
+
+.icon.round {
+  border-radius: 8px;
+}
+
+.icon.square,
+.icon.round {
+  font-family: system-ui, sans-serif;
+  display: inline-block;
+  height: 16px !important;
+  width: 16px !important;
+  line-height: 16px;
+  text-align: center;
+  font-size: 13px;
+  box-sizing: border-box;
+  cursor: pointer;
+  &:not(.hollow) {
+    &:not(.filled) {
+      &.warning {
+        font-weight: 600;
+        font-size: 18px !important;
+        color: var(--feedback-warning-color) !important;
+        border-color: var(--feedback-warning-color);
+      }
+    }
+  }
+  &.hollow {
+    font-weight: 800;
+    background-color: white;
+    border-width: 1px;
+    border-style: solid;
+    &.error {
+      color: var(--feedback-error-color);
+      border-color: var(--feedback-error-color);
+    }
+    &.warning {
+      color: var(--feedback-warning-color);
+      border-color: var(--feedback-warning-color);
+    }
+    &.success {
+      color: var(--feedback-success-color);
+      border-color: var(--feedback-success-color);
+    }
+    &.question {
+      color: var(--feedback-question-color);
+      border-color: var(--feedback-question-color);
+    }
+    &.info {
+      line-height: 14px;
+      color: var(--feedback-info-color);
+      border-color: var(--feedback-info-color);
+    }
+  }
+  &.filled {
+    font-weight: 800;
+    &.error {
+      background-color: var(--feedback-error-color);
+      color: white;
+    }
+    &.warning {
+      background-color: var(--feedback-warning-color);
+      color: white;
+    }
+    &.success {
+      background-color: var(--feedback-success-color);
+      color: white;
+    }
+    &.question {
+      background-color: var(--feedback-question-color);
+      color: white;
+    }
+    &.info {
+      background-color: var(--feedback-info-color);
+      color: white;
+    }
+  }
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.tooltip-pop {
+  position: absolute;
+  max-width: 180px;
+  padding: 5px 10px;
+  font-size: 12px;
+  background-color: black;
+  color: white;
+  box-sizing: border-box;
+  z-index: 1000;
+  border-radius: 4px;
+  animation: unreveal;
+  animation-duration: 0.5s;
+  &.reveal {
+    animation: reveal;
+    animation-duration: 0.5s;
+  }
+}
+
+@keyframes reveal {
+  from  {
+    opacity: 0;
+  }
+  to  {
+    opacity: 1;
+  }
+}
+
+@keyframes unreveal {
+  from  {
+    opacity: 1;
+  }
+  to  {
+    opacity: 0;
+  }
+}

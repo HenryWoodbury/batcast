@@ -1,0 +1,12 @@
+:root {
+  --section-rule-color: #dddddd;
+  --feedback-error-color: #d00a00;
+  --feedback-error-color-light: #fff5f3;
+  --feedback-warning-color: #de8a03;
+  --feedback-info-color: #2B72CB;
+  --feedback-question-color: #2B72CB;
+  --feedback-success-color: #309f60;
+  --ottoneu-body-color: rgb(104, 112, 112);
+  --zebra-background-color: #f2f2f2;
+  --zebra-border-color: #dddddd;
+}

@@ -1,13 +1,10 @@
 # Batcast
 
-
-
-`npm run build` (or vite build) builds the project, and outputs to the folder `./dist`
-
+`npm run build` builds the project with Rollup, and outputs to the folder `./dist`
 
 ## Sources
 
-Extension development can be tricky as many tutorials are based on manifest 2 instead of manifest 3.
+Extension development can be tricky as many tutorials are based on manifest 2 instead of manifest 3 and extension developers are not a huge community.
 
 Some sources I've found useful:
 
