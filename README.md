@@ -16,22 +16,16 @@ A very clean guide to using Vite as a bundler for an extension. While I elected 
 
 Google's guide to using OAuth 2.0 to enable an extension to authenticate users with Google.
 
-## Build Notes
-
-### Using Vite as a Bundler
-
-An enormous hurdle in using [Vite](https://www.npmjs.com/package/rollup) to bundle a Chrome extension is that extension entry points may **not** use dynamic imports. Unlike the underlying Rollup library, Vite does **not** support the use of an array of inputs and outputs.
-
-Multiple input files mapped to an output with `inlineDynamicImports: true` will throw an error.
-
-There is a very informative discussion of this issue here: [Support multiple inputs when "output.inlineDynamicImports" is true](https://github.com/rollup/rollup/issues/5601)
-
-One alternative to the custom scripting described in that thread is to use rollup directly without recourse to Vite's dev server.
-
-### Using Rollup as a Bundler
+## Using Rollup as a Bundler
 
 [Rollup](https://www.npmjs.com/package/rollup) utilizes standard ES module imports and exports to optimize library bundling. Ironically its value in the case of bundling an extension is that it supports using an array of individual input and output entry points, each set to `inlineDynamicImports: true`.
 
 The actual implementation utilizes several plugins, including the [@rollup-extras/plugin-copy](https://www.npmjs.com/package/@rollup-extras/plugin-copy) for copying over html, css, and binary files.
 
 The input files that directly import JSON require [@rollup/plugin-json](https://www.npmjs.com/package/@rollup/plugin-json) as a plugin.
+
+On `npm run build` Rollup throws a warning:
+
+`(!) [plugin typescript] @rollup/plugin-typescript TS5096: Option 'allowImportingTsExtensions' can only be used when either 'noEmit' or 'emitDeclarationOnly' is set.`
+
+This is a known issue internal to Rollup. The warning is incorrect. There's a long discussion here: [allowImportingTsExtensions warning](https://github.com/rollup/plugins/discussions/1536).
