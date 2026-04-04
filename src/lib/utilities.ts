@@ -349,24 +349,24 @@ export const getParkSplit = (gameInfo: GameInfo): string => {
 }
 
 export const getBatterSplit = (batter: Batter, gameInfo: GameInfo) => {
-  const vsRHP = Number(batter['vsRHP']) || Number(batter['vsRHPc']);
-  const vsLHP = Number(batter['vsLHP']) || Number(batter['vsLHPc']);
+  const wOBAvsRHP = Number(batter['wOBAvsRHP']) || Number(batter['wOBAvsRHPc']);
+  const wOBAvsLHP = Number(batter['wOBAvsLHP']) || Number(batter['wOBAvsLHPc']);
 // support calculated splits from `wOBA`
-  return gameInfo.pitcherArm === 'R' ? vsRHP : vsLHP;
+  return gameInfo.pitcherArm === 'R' ? wOBAvsRHP : wOBAvsLHP;
 }
 
 export const getAdjustedBatterSplit = (
-  batterVsRHP: string, 
-  batterVsLHP: string, 
+  batterwOBAvsRHP: string, 
+  batterwOBAvsLHP: string, 
   pitcherArm: string
 ) => {
-  const vsRHP = Number(batterVsRHP);
-  const vsLHP = Number(batterVsLHP);
-  const vsAny = Math.min(vsLHP, vsRHP) / 4;
+  const wOBAvsRHP = Number(batterwOBAvsRHP);
+  const wOBAvsLHP = Number(batterwOBAvsLHP);
+  const vsAny = Math.min(wOBAvsLHP, wOBAvsRHP) / 4;
   // Assume 3 at bats come against starter, then worst platoon case for 1 at bat vs a reliever. 
   // This reflects the general effectiveness of RP matchups and modulates the value of players
   // with extreme platoon differences.
-  return pitcherArm === 'R' ? vsRHP * 3 / 4 + vsAny : vsLHP * 3 / 4 + vsAny;
+  return pitcherArm === 'R' ? wOBAvsRHP * 3 / 4 + vsAny : wOBAvsLHP * 3 / 4 + vsAny;
 }
 
 export const getPitcherSplit = (gameInfo: GameInfo) => {
@@ -377,7 +377,7 @@ export const getPitcherSplit = (gameInfo: GameInfo) => {
   }
 }
 
-// pitcher split can be declared as wOBA via the .vsRHB / .vsLHB columns in custom data sheets.
+// pitcher split can be declared as wOBA via the .wOBAvsRHB / .wOBAvsLHB columns in custom data sheets.
 // Or it can be extrapolated from xFIP, which has a linear relationship to wOBA and is easier
 // to obtain from projections and other data sources.
 export const getPitcherImpact = (
@@ -385,14 +385,21 @@ export const getPitcherImpact = (
   pitcherData: Pitcher,
 ) => {
   const pitcher = { ...DEFAULT_PITCHER, ...pitcherData };
+  const wOBAvsRHB = pitcher.wOBAvsRHB ? Number(pitcher.wOBAvsRHB) : undefined;
+  const wOBAvsLHB = pitcher.wOBAvsLHB ? Number(pitcher.wOBAvsLHB) : undefined;
+  if (wOBAvsRHB && wOBAvsLHB) {
+    return {
+      pitcherVsRHB: wOBAvsRHB.toFixed(3),
+      pitcherVsLHB: wOBAvsLHB.toFixed(3),
+    }
+  }
   const xFIPtoWOBA = Number(limitData.BOBA.LeagueAvg) / LEAGUE_FIP;
   const cWOBA = pitcher.FIP ? Number(pitcher.FIP) * xFIPtoWOBA : LEAGUE_FIP * xFIPtoWOBA;
   const vsRHBc = pitcher.Throws === 'R' ? cWOBA * LEAGUE_RHBvRHP : cWOBA * LEAGUE_RHBvLHP;
   const vsLHBc = pitcher.Throws === 'L' ? cWOBA * LEAGUE_LHBvLHP : cWOBA * LEAGUE_LHBvRHP;
   return {
-    pitcherVsRHB: pitcher.vsRHB || vsRHBc.toFixed(3),
-    pitcherVsLHB: pitcher.vsLHB || vsLHBc.toFixed(3),
-    pitcherType: pitcher.Type,
+    pitcherVsRHB: vsRHBc.toFixed(3),
+    pitcherVsLHB: vsLHBc.toFixed(3),
   }
 }
 
@@ -419,10 +426,10 @@ export const getParkFactor = (
 }
 
 export const getAggregate = (batter: Batter, gameInfo: GameInfo, limitData: LimitObject) => {
-  const vsLHP = batter.vsLHP ? batter.vsLHP : batter.vsLHPc;
-  const vsRHP = batter.vsRHP ? batter.vsRHP : batter.vsRHPc;
-  if (!vsLHP || !vsRHP || !gameInfo.pitcherArm) return;
-  const batterSplit = getAdjustedBatterSplit(vsRHP, vsLHP, gameInfo.pitcherArm);
+  const wOBAvsLHP = batter.wOBAvsLHP ? batter.wOBAvsLHP : batter.wOBAvsLHPc;
+  const wOBAvsRHP = batter.wOBAvsRHP ? batter.wOBAvsRHP : batter.wOBAvsRHPc;
+  if (!wOBAvsLHP || !wOBAvsRHP || !gameInfo.pitcherArm) return;
+  const batterSplit = getAdjustedBatterSplit(wOBAvsRHP, wOBAvsLHP, gameInfo.pitcherArm);
   const nPark = Number(getParkSplit(gameInfo));
   const pitcherSplit = getPitcherSplit(gameInfo);
   // SP will rarely pitch more than 3 times through the order, limiting impact.

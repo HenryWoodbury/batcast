@@ -110,18 +110,18 @@
         animation-name: slideClosedWoba;
         animation-duration: 0.25s;
       }
-      .batcast-woba-vslhp,
-      .batcast-woba-vsrhp {
+      .batcast-woba-wOBAvsLHP,
+      .batcast-woba-wOBAvsRHP {
         position: absolute;
         display: block;
         width: 95px;
         text-align: center;
         top: 0px;
       }
-      .batcast-woba-vslhp {
+      .batcast-woba-wOBAvsLHP {
         left: 0px;
       }
-      .batcast-woba-vsrhp {
+      .batcast-woba-wOBAvsRHP {
         left: 95px;
       }
     }
@@ -133,11 +133,11 @@
       &.batcast-hide {
         animation-name: slideClosed;
       }
-      .batcast-woba-vslhp {
+      .batcast-woba-wOBAvsLHP {
         left: 5px;
         width: 85px;
       }
-      .batcast-woba-vsrhp {
+      .batcast-woba-wOBAvsRHP {
         left: 90px;
         width: 85px;
       }

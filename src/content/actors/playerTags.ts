@@ -6,7 +6,6 @@ import {
   type Batter, 
   type LimitObject,
   type ElementDefinition,
-  type Quintiles,
   type BatterObject,
   type PitcherObject,
   type StorageObject,
@@ -84,7 +83,6 @@ const renderBatter = (
   batter: Batter,
   limitData: LimitObject,
   gameInfo: GameInfo,
-  quintiles: Quintiles, 
 ) => {
   batterElement.classList.add('batcast-player-name-cell', 'batcast-aggregate-cell');
   
@@ -96,41 +94,12 @@ const renderBatter = (
 
   let vsPitcherText;
 
-  if (gameInfo.pitcherType) {
-    const b1 = batter['q1']?.split(' ') || [];
-    const b2 = batter['q2']?.split(' ') || [];
-    const b3 = batter['q3']?.split(' ') || [];
-    const b4 = batter['q4']?.split(' ') || [];
-    const b5 = batter['q5']?.split(' ') || [];
-// Based on pitcher Type match, modify batter.vsRHP && batter.vsLHP
-    const bAll = [...b1, ...b2, ...b3, ...b4, ...b5];
-    if (bAll.includes(gameInfo.pitcherType)) {
-      vsPitcherText = ` vs ${gameInfo.pitcherType}`;
-      if (b1.includes(gameInfo.pitcherType)) {
-        batter.vsRHP = quintiles['q1'];
-        batter.vsLHP = quintiles['q1'];
-      } else if (b2.includes(gameInfo.pitcherType)) {
-        batter.vsRHP = quintiles['q2'];
-        batter.vsLHP = quintiles['q2'];
-      } else if (b3.includes(gameInfo.pitcherType)) {
-        batter.vsRHP = quintiles['q3'];
-        batter.vsLHP = quintiles['q3'];
-      } else if (b4.includes(gameInfo.pitcherType)) {
-        batter.vsRHP = quintiles['q4'];
-        batter.vsLHP = quintiles['q4'];
-      } else if (b5.includes(gameInfo.pitcherType)) {
-        batter.vsRHP = quintiles['q5'];
-        batter.vsLHP = quintiles['q5'];
-      }
-    }
-  }
-
   if (batter.wOBA && batter.Bats) {
     const wOBANum = Number(batter.wOBA);
-    const vsLHPc = batter.Bats === "L" ? wOBANum * LEAGUE_LHBvLHP : wOBANum * LEAGUE_RHBvLHP;
-    const vsRHPc = batter.Bats === "R" ? wOBANum * LEAGUE_RHBvRHP : wOBANum * LEAGUE_LHBvRHP;
-    batter.vsLHPc = vsLHPc.toFixed(3);
-    batter.vsRHPc = vsRHPc.toFixed(3);
+    const wOBAvsLHPc = batter.Bats === "L" ? wOBANum * LEAGUE_LHBvLHP : wOBANum * LEAGUE_RHBvLHP;
+    const wOBAvsRHPc = batter.Bats === "R" ? wOBANum * LEAGUE_RHBvRHP : wOBANum * LEAGUE_LHBvRHP;
+    batter.wOBAvsLHPc = wOBAvsLHPc.toFixed(3);
+    batter.wOBAvsRHPc = wOBAvsRHPc.toFixed(3);
   }
 
   const elAggregateBase: ElementDefinition = {
@@ -149,20 +118,21 @@ const renderBatter = (
   const hasParkFactor = gameInfo?.gameParkRank?.parkFactor;
   let baggY = 1, baggTextColor, baggBorderColor, baggColor, baggClass;
 
-  if (aggregate && limitData.BOBA.ColorRange) {
-    const batterAggregate = stringClamp(aggregate, batterMin, batterMax, 3);
-    baggColor = limitData.BOBA.ColorRange[batterAggregate];
+  const rawValue = aggregate ?? batter['wOBA'];
+  if (rawValue && limitData.BOBA.ColorRange) {
+    const clamped = stringClamp(rawValue, batterMin, batterMax, 3);
+    baggColor = limitData.BOBA.ColorRange[clamped];
     baggY = getBrightnessFromColorString(baggColor);
     baggBorderColor = baggY > .95 ? colors.TAG_BORDER_INVERSE : baggColor;
     baggTextColor = baggY < 0.6 ? colors.TAG_TEXT_INVERSE : colors.TAG_TEXT;
-    baggClass = `batcast-aggregate-${batterAggregate.slice(2)}`;
-    elAggregateBase.text = batterAggregate.slice(1);
+    baggClass = aggregate ? `batcast-aggregate-${clamped.slice(2)}` : 'batcast-woba';
+    elAggregateBase.text = clamped.slice(1);
   } else if (batter['wOBA'] || gameInfo.pitcherArm) {
-    elAggregateBase.text = batter['wOBA'] ? batter['wOBA'].slice(1) : 'NA';
-    baggColor = batter['wOBA'] ? 'transparent' : colors.TAG_BACKGROUND_COLOR_NA_ACTIVE;
+    elAggregateBase.text = 'NA';
+    baggColor = colors.TAG_BACKGROUND_COLOR_NA_ACTIVE;
     baggTextColor = colors.TAG_TEXT;
     baggBorderColor = colors.TAG_BORDER_COLOR_NA_ACTIVE;
-    baggClass = batter['wOBA'] ? 'batcast-woba' : 'batcast-aggregate-na-active';
+    baggClass = 'batcast-aggregate-na-active';
   } else {
     elAggregateBase.text = 'NA';
     baggColor = colors.TAG_BACKGROUND_COLOR_NA;
@@ -242,36 +212,36 @@ const renderBatter = (
     };
     elAggregate.children?.push(splitsBlock);
   } else if (batter['wOBA']) {
-    const vsLHP: ElementDefinition = {
+    const wOBAvsLHP: ElementDefinition = {
       tag: 'strong',
-      text: batter.vsLHP ? batter.vsLHP.slice(1) : batter.vsLHPc?.slice(1) || ''
+      text: batter.wOBAvsLHP ? batter.wOBAvsLHP.slice(1) : batter.wOBAvsLHPc?.slice(1) || ''
     }
-    const vsLHPLabel: ElementDefinition = {
+    const wOBAvsLHPLabel: ElementDefinition = {
       tag: 'span',
       text: ' vs LHP'
     };
-    const vsLHPSplit: ElementDefinition = {
+    const wOBAvsLHPSplit: ElementDefinition = {
       tag: 'span',
-      css: ['batcast-woba-vslhp'],
-      children: [ vsLHP, vsLHPLabel]
+      css: ['batcast-woba-wOBAvsLHP'],
+      children: [ wOBAvsLHP, wOBAvsLHPLabel]
     }
-    const vsRHP: ElementDefinition = {
+    const wOBAvsRHP: ElementDefinition = {
       tag: 'strong',
-      text: batter.vsRHP ? batter.vsRHP.slice(1) : batter.vsRHPc?.slice(1) || ''
+      text: batter.wOBAvsRHP ? batter.wOBAvsRHP.slice(1) : batter.wOBAvsRHPc?.slice(1) || ''
     }
-    const vsRHPLabel: ElementDefinition = {
+    const wOBAvsRHPLabel: ElementDefinition = {
       tag: 'span',
       text: ' vs RHP'
     };
-    const vsRHPSplit: ElementDefinition = {
+    const wOBAvsRHPSplit: ElementDefinition = {
       tag: 'span',
-      css: ['batcast-woba-vsrhp'],
-      children: [ vsRHP, vsRHPLabel]
+      css: ['batcast-woba-wOBAvsRHP'],
+      children: [ wOBAvsRHP, wOBAvsRHPLabel]
     };
     const vsPark = hasParkFactor ? defineParkSplit(gameInfo) : null;
     const extendedCssClass = hasParkFactor ? 'batcast-pf-extended' : '';
     // TODO: Move this to a function to handle redundant logic
-    const children = [ vsLHPSplit, vsRHPSplit ];
+    const children = [ wOBAvsLHPSplit, wOBAvsRHPSplit ];
     if (vsPark) children.push(vsPark);
     const splitsBlock: ElementDefinition = {
       id: `batcast-aggregate-extended-${batter.OttoneuID}`,
@@ -307,7 +277,6 @@ const renderTags = (
   pFL: ParkFactorsObject, 
   pFR: ParkFactorsObject,
   page: string,
-  quintiles: Quintiles,
 ) => {
   const batterLink = playerNode.querySelector('a');
   if (!batterLink || batterLink.classList.contains('add_target')) return;
@@ -336,7 +305,6 @@ const renderTags = (
     pitcherArm: '',
     pitcherVsLHB: '',
     pitcherVsRHB: '',
-    pitcherType: '',
     gamePark: '',
     gameScore: '',
     gameLink: '',
@@ -349,7 +317,7 @@ const renderTags = (
 
   // No pitcher or park
   if (page === ROSTER_ORGANIZER) {
-    renderBatter(playerNode, batter, limitData, gameInfo, quintiles);
+    renderBatter(playerNode, batter, limitData, gameInfo);
     return;
   }
 
@@ -411,7 +379,6 @@ const renderTags = (
         const pitcher = getPitcherImpact(limitData, pitcherData[gameInfo.pitcherId]);
         gameInfo.pitcherVsRHB = pitcher.pitcherVsRHB;
         gameInfo.pitcherVsLHB = pitcher.pitcherVsLHB;
-        gameInfo.pitcherType = pitcher.pitcherType;
       }
     }
   }
@@ -421,7 +388,7 @@ const renderTags = (
   gameInfo.gameParkRank.parkFactor = pf;
   gameInfo.gameParkRank.parkFactorColor = parkFactorColor;
 
-  renderBatter(playerNode, batter, limitData, gameInfo, quintiles);
+  renderBatter(playerNode, batter, limitData, gameInfo);
 }
 
 export const addPlayerTags = async (playerNode?: Element) => {
@@ -455,22 +422,12 @@ export const addPlayerTags = async (playerNode?: Element) => {
     limitData.BOBA.ColorRange = {...createColorRange(limitData.BOBA)};
     limitData.POBA.ColorRange = {...createColorRange(limitData.POBA)};
     limitData.PF.ColorRange = {...createColorRange(limitData.PF)};
-    const batterMin = limitData.BOBA.Min;
-    const batterMax = limitData.BOBA.Max;    
-    const quintile = (Number(batterMax) - Number(batterMin)) / 5;
-    const quintiles = {
-      'q1' : (Number(batterMax) - quintile).toFixed(3),
-      'q2' : (Number(batterMax) - quintile * 2).toFixed(3),
-      'q3' : (Number(batterMax) - quintile * 3).toFixed(3),
-      'q4' : (Number(batterMax) - quintile * 4).toFixed(3),
-      'q5' : (Number(batterMax) - quintile * 5).toFixed(3),
-    }
     if (playerNode) {
-      renderTags(playerNode, batterData, pitcherData, limitData, pFL, pFR,  page, quintiles);
+      renderTags(playerNode, batterData, pitcherData, limitData, pFL, pFR,  page);
     } else {
       const batterNodes = document.querySelectorAll(selectors.LINEUP_TABLE_BATTERS_NAME);
       batterNodes.forEach(playerNode => {
-        renderTags(playerNode, batterData, pitcherData, limitData, pFL, pFR, page, quintiles);
+        renderTags(playerNode, batterData, pitcherData, limitData, pFL, pFR, page);
       });
     }
   } else {

@@ -205,9 +205,9 @@ form.connect {
         width: 120px;
       }
     }
-    .grid-fgid {
+    .grid-FangraphsID {
       span.entry {
-        width: 50px;
+        width: 70px;
       }
     }
     .grid-factor,
@@ -216,12 +216,6 @@ form.connect {
     .grid-maxcolor {
       span.entry {
         width: 90px;
-      }
-    }
-    .grid-fgminorid,
-    .grid-mlbamid {
-      span.entry {
-        width: 70px;
       }
     }
     .grid-position {
@@ -235,15 +229,9 @@ form.connect {
         width: 35px;
       }
     }
-    .grid-birthday,
-    .grid-lastcheck {
+    .grid-birthday {
       span.entry {
         width: 90px;
-      }
-    }
-    .grid-confidence {
-      span.entry {
-        width: 70px;
       }
     }
   }

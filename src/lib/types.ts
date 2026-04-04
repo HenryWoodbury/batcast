@@ -1,44 +1,29 @@
 export interface Batter {
   "OttoneuID": string;
   "Name": string;
-  "FGID": string;
-  "FGMinorID": string;
-  "MLBAMID": string;
+  "FangraphsID": string;
   "Birthday": string;
   "Positions": string;
   "Bats"?: string;
   "Throws"?: string;
-  "LastCheck"?: string;
-  "Confidence"?: string;
   "wOBA"?: string;
-  "vsLHP"?: string;
-  "vsRHP"?: string;
-  "vsLHPc"?: string;
-  "vsRHPc"?: string;
-  "q1"?: string;
-  "q2"?: string;
-  "q3"?: string;
-  "q4"?: string;
-  "q5"?: string;
+  "wOBAvsLHP"?: string;
+  "wOBAvsRHP"?: string;
+  "wOBAvsLHPc"?: string;
+  "wOBAvsRHPc"?: string;
 }
 
 export interface Pitcher {
   "OttoneuID": string;
   "Name": string;
-  "FGID": string;
-  "FGMinorID": string;
-  "MLBAMID": string;
+  "FangraphsID": string;
   "Birthday": string;
   "Positions": string;
   "Bats"?: string;
   "Throws"?: string;
-  "LastCheck"?: string;
-  "Confidence"?: string;
-  "wOBA"?: string;
   "FIP"?: string;
-  "vsLHB"?: string;
-  "vsRHB"?: string;
-  "Type"?: string;
+  "wOBAvsLHB"?: string;
+  "wOBAvsRHB"?: string;
 }
 
 export interface KeyString {
@@ -48,35 +33,26 @@ export interface KeyString {
 export const PlayerKeys = [
   "OttoneuID",
   "Name",
-  "FGID",
+  "FangraphsID",
   "FGMinorID",
-  "MLBAMID",
   "Birthday",
   "Positions",
   "Bats",
   "Throws",
-  "LastCheck",
-  "Confidence",
 ]
 
 export const BatterKeys = [
   ...PlayerKeys, 
   "wOBA",
-  "vsLHP",
-  "vsRHP",
-  "q1",
-  "q2",
-  "q3",
-  "q4",
-  "q5",
+  "wOBAvsLHP",
+  "wOBAvsRHP",
 ];
 
 export const PitcherKeys = [
   ...PlayerKeys, 
   "FIP",
-  "vsLHB",
-  "vsRHB",
-  "Type",
+  "wOBAvsLHB",
+  "wOBAvsRHB",
 ];
 
 export const LimitKeys = [
@@ -99,7 +75,10 @@ export interface ParkFactors {
   "Year": string;
   "ParkFactor": string;
   "wOBACon": string;
+  "xwOBACon": string;
   "BACON": string;
+  "xBACON": string;
+  "HardHit": string;
   "R": string;
   "OBP": string;
   "H": string;
@@ -110,14 +89,6 @@ export interface ParkFactors {
   "BB": string;
   "SO": string;
   "PA": string;
-}
-
-export interface Quintiles {
-  "q1": string;
-  "q2": string;
-  "q3": string;
-  "q4": string;
-  "q5": string;
 }
 
 export interface ColorRange {
@@ -155,7 +126,6 @@ export interface GameInfo {
   pitcherName: string;
   pitcherVsLHB: string;
   pitcherVsRHB: string;
-  pitcherType: string;
   gameLink: string;
   gamePark: string;
   gameScore: string;

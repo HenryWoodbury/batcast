@@ -1,4 +1,3 @@
-import universe from '../data/universe.json' with { type: "json" };
 import { 
   VALIDATIONS,
   LIMIT_IDS,
@@ -56,18 +55,16 @@ export const validateDataObject = (
   } else {
     if (!id) { 
       errorObject[PlayerKeys[0]] = VALIDATIONS.MISSING_ID;
-    } else if (universe.id.indexOf(id) < 0) {
-      errorObject[PlayerKeys[0]] = VALIDATIONS.INVALID_ID;
     }
-    if (entry[7] && !(entry[7] in BATS)) {
+    if (entry[5] && !(entry[5] in BATS)) {
       errorObject[PlayerKeys[0]] = VALIDATIONS.INVALID_ROW;
       errorObject[PlayerKeys[7]] = VALIDATIONS.INVALID_ENTRY; 
     }
-    if (entry[8] && !(entry[8] in THROWS)) {
+    if (entry[6] && !(entry[6] in THROWS)) {
       errorObject[PlayerKeys[0]] = VALIDATIONS.INVALID_ROW;
       errorObject[PlayerKeys[8]] = VALIDATIONS.INVALID_ENTRY; 
     }
-    for (let i = 11; i < 14; i++) {
+    for (let i = 7; i < 10; i++) {
       if (entry[i]) {
         const wOBAorFIP = Number(entry[i]);
         const key = dataType === CUSTOM_DATA_TYPES.BATTER ? BatterKeys[i] : PitcherKeys[i];
