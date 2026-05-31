@@ -327,6 +327,11 @@ const calcColor = (colorFloor: string, colorCeiling: string, steps: number) =>
   (Number(colorCeiling) - Number(colorFloor)) / steps;
 
 // https://stackoverflow.com/a/71768530
+// Splits on any whitespace including U+00A0 (non-breaking space / &nbsp;) which
+// textContent decodes from HTML entities but \s alone may not match in all engines.
+export const splitOnWhitespace = (s: string): string[] =>
+  s.trim().split(/[\s ]+/);
+
 export const getBrightness = (r: number, g: number, b: number) => {
   let v = 0;
   v += 0.212655 * ((r/255) <= 0.04045 ? (r/255)/12.92 : Math.pow(((r/255)+0.055)/1.055, 2.4));
@@ -352,7 +357,7 @@ export const getBatterSplit = (batter: Batter, gameInfo: GameInfo) => {
   const wOBAvsRHP = Number(batter['wOBAvsRHP']) || Number(batter['wOBAvsRHPc']);
   const wOBAvsLHP = Number(batter['wOBAvsLHP']) || Number(batter['wOBAvsLHPc']);
 // support calculated splits from `wOBA`
-  return gameInfo.pitcherArm === 'R' ? wOBAvsRHP : wOBAvsLHP;
+  return pitcherThrowsRight(gameInfo.pitcherArm) ? wOBAvsRHP : wOBAvsLHP;
 }
 
 export const getAdjustedBatterSplit = (
@@ -366,11 +371,32 @@ export const getAdjustedBatterSplit = (
   // Assume 3 at bats come against starter, then worst platoon case for 1 at bat vs a reliever. 
   // This reflects the general effectiveness of RP matchups and modulates the value of players
   // with extreme platoon differences.
-  return pitcherArm === 'R' ? wOBAvsRHP * 3 / 4 + vsAny : wOBAvsLHP * 3 / 4 + vsAny;
+  return pitcherThrowsRight(pitcherArm) ? wOBAvsRHP * 3 / 4 + vsAny : wOBAvsLHP * 3 / 4 + vsAny;
 }
 
+export const normalizeBatterSide = (side?: string): string => {
+  if (!side) return '';
+  const s = side.trim().toUpperCase();
+  if (s.startsWith('L')) return 'L';
+  if (s.startsWith('R')) return 'R';
+  if (s.startsWith('B') || s.startsWith('S')) return 'B';
+  return '';
+};
+
+export const pitcherThrowsRight = (pitcherArm: string): boolean => {
+  const arm = pitcherArm.trim().toUpperCase();
+  return arm.startsWith('R');
+};
+
+export const usesLeftBatParkFactor = (batterSide: string, pitcherArm: string): boolean => {
+  const side = normalizeBatterSide(batterSide);
+  if (side === 'L') return true;
+  if (side === 'B') return pitcherThrowsRight(pitcherArm);
+  return false;
+};
+
 export const getPitcherSplit = (gameInfo: GameInfo) => {
-  if (gameInfo.batterSide === 'L' || (gameInfo.batterSide === 'S' && gameInfo.pitcherArm === 'R')) {
+  if (usesLeftBatParkFactor(gameInfo.batterSide, gameInfo.pitcherArm)) {
     return gameInfo.pitcherVsLHB || UNKNOWN_PITCHER_SPLIT;
   } else {
     return gameInfo.pitcherVsRHB || UNKNOWN_PITCHER_SPLIT;
@@ -408,6 +434,7 @@ export const getParkFactor = (
   limitData: LimitObject,
   pFL: ParkFactorsObject, 
   pFR: ParkFactorsObject,
+  batterBats?: string,
 ) => {
   let pf = '100';
   if (gameInfo.gamePark) {
@@ -416,7 +443,9 @@ export const getParkFactor = (
     const pfl = pFL[park]?.ParkFactor || '100';
     const min = limitData.PF.Min;
     const max = limitData.PF.Max;
-    if (gameInfo.batterSide === 'L' || (gameInfo.batterSide === 'S' && gameInfo.pitcherArm === 'R')) {
+    const batterSide =
+      normalizeBatterSide(gameInfo.batterSide) || normalizeBatterSide(batterBats);
+    if (usesLeftBatParkFactor(batterSide, gameInfo.pitcherArm)) {
       pf = stringClamp(pfl, min, max);
     } else {
       pf = stringClamp(pfr, min, max);

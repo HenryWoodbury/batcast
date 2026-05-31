@@ -18,7 +18,7 @@ export const limits = {
     "Increments": "7",
     "LeagueAvg": "100",
     "LimitID": "PF",
-    "Max": "111",
+    "Max": "114",
     "MaxColor": "228 100 105",
     "Min": "90",
     "MinColor": "114 144 197"

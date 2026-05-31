@@ -2,7 +2,10 @@ import {
   clamp,
   createColorRange,
   getBrightness,
+  getParkFactor,
+  usesLeftBatParkFactor,
 } from '../../src/lib/utilities.ts';
+import type { GameInfo, ParkFactorsObject } from '../../src/lib/types.ts';
 import { limits } from '../../__mocks__/limits.ts';
 import * as b from '../../__mocks__/limitsData.ts';
 
@@ -30,6 +33,46 @@ describe('#createColorRange(limit)', () => {
   it('Creates the expected gradient for parks', () => {
     const colorRange = createColorRange(limits.PF);
     expect(colorRange).toEqual(b.pf);
+  });
+});
+
+describe('#usesLeftBatParkFactor(batterSide, pitcherArm)', () => {
+  it('uses LHB factors for left-handed batters', () => {
+    expect(usesLeftBatParkFactor('L', 'R')).toBe(true);
+  });
+  it('uses LHB factors for switch hitters vs RHP', () => {
+    expect(usesLeftBatParkFactor('B', 'R')).toBe(true);
+    expect(usesLeftBatParkFactor('S', 'RHP')).toBe(true);
+  });
+  it('uses RHB factors for right-handed batters', () => {
+    expect(usesLeftBatParkFactor('R', 'L')).toBe(false);
+  });
+});
+
+describe('#getParkFactor(gameInfo, limits, pFL, pFR)', () => {
+  const limitData = { PF: limits.PF };
+  const pFL: ParkFactorsObject = {
+    COL: { Abbr: 'COL', ParkFactor: '114' } as ParkFactorsObject[string],
+  };
+  const pFR: ParkFactorsObject = {
+    COL: { Abbr: 'COL', ParkFactor: '111' } as ParkFactorsObject[string],
+  };
+  const baseGameInfo = {
+    gamePark: 'COL',
+    batterSide: 'L',
+    pitcherArm: 'R',
+  } as GameInfo;
+
+  it('returns the LHB park factor at Coors for left-handed batters', () => {
+    expect(getParkFactor(baseGameInfo, limitData, pFL, pFR)).toBe('114');
+  });
+  it('returns the RHB park factor at Coors for right-handed batters', () => {
+    expect(getParkFactor({ ...baseGameInfo, batterSide: 'R' }, limitData, pFL, pFR)).toBe('111');
+  });
+  it('falls back to batter.Bats when lineup bio handedness is missing', () => {
+    expect(
+      getParkFactor({ ...baseGameInfo, batterSide: '' }, limitData, pFL, pFR, 'L'),
+    ).toBe('114');
   });
 });
 

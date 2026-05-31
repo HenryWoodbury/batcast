@@ -21,14 +21,16 @@ import {
   LEAGUE_RHBvRHP,
 } from '../../lib/constants.ts';
 import { 
-  stringClamp, 
-  getBrightnessFromColorString, 
+  stringClamp,
+  getBrightnessFromColorString,
   getAggregate,
-  getPitcherImpact,  
+  getPitcherImpact,
   getBatterSplit,
   getPitcherSplit,
   getParkSplit,
   getParkFactor,
+  usesLeftBatParkFactor,
+  splitOnWhitespace,
   createColorRange,
   mergeCustomData,
 } from '../../lib/utilities.ts';
@@ -60,6 +62,13 @@ const toggle = (node: HTMLElement, target: HTMLElement) => {
     target.classList.add('batcast-show');
   }
 }
+
+const parseLineupPlayerBio = (playerDetails: Element | null) => {
+  if (!playerDetails) return null;
+  const parts = splitOnWhitespace(playerDetails.textContent ?? '');
+  if (parts.length < 3) return null;
+  return { homePark: parts[0], position: parts[1], handedness: parts[2] };
+};
 
 const defineParkSplit = (gameInfo: GameInfo) => {
   const vsParkSplit: ElementDefinition = {
@@ -185,7 +194,7 @@ const renderBatter = (
       tag: 'strong',
       text: getPitcherSplit(gameInfo)
     };
-    const batterSide =  (gameInfo.batterSide === 'L' || (gameInfo.batterSide === 'S' && gameInfo.pitcherArm === 'R')) 
+    const batterSide = usesLeftBatParkFactor(gameInfo.batterSide, gameInfo.pitcherArm)
       ? ' vs LHB'
       : ' vs RHB';
     const vsBatterSplitLabel: ElementDefinition = {
@@ -323,15 +332,12 @@ const renderTags = (
 
   const playerBio = playerNode.querySelector('.lineup-player-bio');
   const playerDetails = playerBio?.querySelector('.tinytext');
-  const playerArray = playerDetails?.innerHTML.split('&nbsp;');
-  if (!playerArray) return;
-  const homePark = playerArray[0];
-  const position = playerArray[1];
-  const handedness = playerArray[2];
+  const bio = parseLineupPlayerBio(playerDetails ?? null);
+  if (!bio) return;
 
-  gameInfo.batterPark = homePark;
-  gameInfo.batterPosition = position;
-  gameInfo.batterSide = handedness;
+  gameInfo.batterPark = bio.homePark;
+  gameInfo.batterPosition = bio.position;
+  gameInfo.batterSide = bio.handedness || batter.Bats || '';
 
   const lineupNode = playerNode.querySelector('.lineup-game-info');
   const gameElementContent = lineupNode ? lineupNode.textContent : null;
@@ -348,7 +354,7 @@ const renderTags = (
       gameInfo.opponent = opponentPark;
     } else {
       const possiblePark = gameElementContent.slice(0, 3);
-      gameInfo.gamePark = homePark.slice(0, 3);
+      gameInfo.gamePark = bio.homePark.slice(0, 3);
       if (possiblePark in TEAMS) {
         gameInfo.opponent = possiblePark;
       } else {
@@ -383,7 +389,7 @@ const renderTags = (
     }
   }
 
-  const pf = getParkFactor(gameInfo, limitData, pFL, pFR);
+  const pf = getParkFactor(gameInfo, limitData, pFL, pFR, batter.Bats);
 
   gameInfo.gameParkRank.parkFactor = pf;
   gameInfo.gameParkRank.parkFactorColor = parkFactorColor;

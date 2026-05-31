@@ -27,7 +27,7 @@
   "LimitID": "PF",
   "Factor": "Park Factor",
   "Min": "90",
-  "Max": "111",
+  "Max": "114",
   "Avg": "100",
   "Increments": "7",
   "MinColor": "114 144 197",
